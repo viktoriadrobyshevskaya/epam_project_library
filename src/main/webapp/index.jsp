@@ -1,4 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<%@ taglib uri="/WEB-INF/c.tld" prefix="c" %>
+<%@ taglib uri="/WEB-INF/fmt.tld" prefix="fmt" %>
 <html>
 <head>
     <title>Welcome Page</title>
@@ -7,7 +10,7 @@
 
 <h3> Welcome to Victory Library </h3>
 
-<a href="books.jsp"> Каталог книг </a>
+<jsp:include page="books.jsp"></jsp:include>
 
 </body>
 </html>

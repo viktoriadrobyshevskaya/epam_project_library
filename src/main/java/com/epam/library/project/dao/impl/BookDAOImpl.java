@@ -28,10 +28,11 @@ public class BookDAOImpl implements BookDAO {
 
             List<Book> books = new ArrayList<>();
             while (resultSet.next()) {
+                int id = resultSet.getInt(1);
                 String title = resultSet.getString(2);
                 int id_author = resultSet.getInt(3);
                 String year = resultSet.getString(4);
-                int numberOfCopies = resultSet.getInt(4);
+                int numberOfCopies = resultSet.getInt(5);
 
                 books.add(new Book(title, id_author, year, numberOfCopies));
             }

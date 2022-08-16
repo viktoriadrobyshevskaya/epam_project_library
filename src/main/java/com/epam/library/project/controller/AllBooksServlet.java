@@ -39,6 +39,6 @@ public class AllBooksServlet extends HttpServlet {
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServiceException {
             List<Book> books = bookService.showAllBooks();
             req.setAttribute("books", books);
-            req.getRequestDispatcher("/books.jsp").forward(req, resp);
+            req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 }

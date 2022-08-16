@@ -27,20 +27,20 @@ public class Book {
         this.id = id;
     }
 
-    public int getId_author() {
-        return id_author;
-    }
-
-    public void setId_author(int id_author) {
-        this.id_author = id_author;
-    }
-
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getId_author() {
+        return id_author;
+    }
+
+    public void setId_author(int id_author) {
+        this.id_author = id_author;
     }
 
     public String getYearOfPublication() {
@@ -64,7 +64,7 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id == book.id && id_author == book.id_author && numberOfCopies == book.numberOfCopies && title.equals(book.title) && yearOfPublication.equals(book.yearOfPublication);
+        return id == book.id && id_author == book.id_author && numberOfCopies == book.numberOfCopies && Objects.equals(title, book.title) && Objects.equals(yearOfPublication, book.yearOfPublication);
     }
 
     @Override
