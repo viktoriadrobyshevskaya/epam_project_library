@@ -19,19 +19,29 @@ public class Main {
 //        AuthorDAO authorDAO = daoFactory.getAuthorDAO();
 //        try {
 //            authorDAO.addAuthor(new Author("Николай", "Васильевич", "Гоголь", 1809));
-//            bookDAO.addBook(new Book("Мертвые души", 3, "1842", 2));
+//            bookDAO.addBook(new Book("Капитанская дочка", 1, "1836", 2));
 //        } catch (DAOException e) {
 //            throw new RuntimeException(e);
 //        }
 
-        DAOFactory daoFactory = DAOFactory.getInstance();
-        BookDAO bookDAO = daoFactory.getBookDAO();
-        try {
-            List<Book> books = bookDAO.showAllBooks();
-            System.out.println(books);
-        } catch (DAOException e) {
-            throw new RuntimeException(e);
-        }
+
+//        DAOFactory daoFactory = DAOFactory.getInstance();
+//        BookDAO bookDAO = daoFactory.getBookDAO();
+//        try {
+//            List<Book> books = bookDAO.showAllBooks();
+//            System.out.println(books);
+//        } catch (DAOException e) {
+//            throw new RuntimeException(e);
+//        }
+
+//        DAOFactory daoFactory = DAOFactory.getInstance();
+//        BookDAO bookDAO = daoFactory.getBookDAO();
+//        try {
+//           Book books = bookDAO.findBookById(2);
+//            System.out.println(books);
+//        } catch (DAOException e) {
+//            throw new RuntimeException(e);
+//        }
 
 //        DAOFactory daoFactory = DAOFactory.getInstance();
 //        UserDAO userDAO = daoFactory.getUserDAO();

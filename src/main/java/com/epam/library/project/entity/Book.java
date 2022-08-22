@@ -19,6 +19,14 @@ public class Book {
         this.numberOfCopies = numberOfCopies;
     }
 
+    public Book(int id, String title, int id_author, String yearOfPublication, int numberOfCopies) {
+        this.id = id;
+        this.title = title;
+        this.id_author = id_author;
+        this.yearOfPublication = yearOfPublication;
+        this.numberOfCopies = numberOfCopies;
+    }
+
     public int getId() {
         return id;
     }

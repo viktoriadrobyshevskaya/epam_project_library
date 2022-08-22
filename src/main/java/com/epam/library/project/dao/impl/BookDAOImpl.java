@@ -22,7 +22,7 @@ public class BookDAOImpl implements BookDAO {
 
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(BookQuery.All_USERS);
+            preparedStatement = connection.prepareStatement(BookQuery.All_BOOKS);
 
             resultSet = preparedStatement.executeQuery();
 
@@ -34,7 +34,7 @@ public class BookDAOImpl implements BookDAO {
                 String year = resultSet.getString(4);
                 int numberOfCopies = resultSet.getInt(5);
 
-                books.add(new Book(title, id_author, year, numberOfCopies));
+                books.add(new Book(id, title, id_author, year, numberOfCopies));
             }
 
             return books;
@@ -48,7 +48,6 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public void addBook(Book book) throws DAOException {
-
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement statement = connection.prepareStatement(BookQuery.ADD_BOOK)) {
             statement.setString(1, book.getTitle());
@@ -66,7 +65,6 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public void deleteBookById(int id) throws DAOException {
-
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement statement = connection.prepareStatement(BookQuery.DELETE_BOOK)) {
             statement.setInt(1, id);
@@ -85,16 +83,50 @@ public class BookDAOImpl implements BookDAO {
             connection = ConnectionPool.getInstance().takeConnection();
             preparedStatement = connection.prepareStatement(BookQuery.UPDATE_BOOK);
 
-            preparedStatement.setInt(1, id);
-            preparedStatement.setString(2, book.getTitle());
-            preparedStatement.setInt(3, book.getId_author());
-            preparedStatement.setString(4, book.getYearOfPublication());
-            preparedStatement.setInt(5, book.getNumberOfCopies());
+            preparedStatement.setString(1, book.getTitle());
+            preparedStatement.setInt(2, book.getId_author());
+            preparedStatement.setString(3, book.getYearOfPublication());
+            preparedStatement.setInt(4, book.getNumberOfCopies());
+            preparedStatement.setInt(5, id);
 
+            preparedStatement.executeUpdate();
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException(e);
         } finally {
             ConnectionPool.getInstance().closeConnectionQueue(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public Book findBookById(int bookId) throws DAOException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            preparedStatement = connection.prepareStatement(BookQuery.FIND_BOOK);
+            preparedStatement.setInt(1, bookId);
+            resultSet = preparedStatement.executeQuery();
+
+            Book book = null;
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String title = resultSet.getString(2);
+                int id_author = resultSet.getInt(3);
+                String year = resultSet.getString(4);
+                int numberOfCopies = resultSet.getInt(5);
+
+                book = new Book(id, title, id_author, year, numberOfCopies);
+            }
+
+            return book;
+
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DAOException(e);
+        } finally {
+            ConnectionPool.getInstance().closeConnectionQueue(connection, preparedStatement, resultSet);
         }
     }
 

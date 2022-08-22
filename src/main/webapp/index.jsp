@@ -11,6 +11,8 @@
 <h3> Welcome to Victory Library </h3>
 
 <jsp:include page="books.jsp"></jsp:include>
+<jsp:include page="authors.jsp"></jsp:include>
+<jsp:include page="users.jsp"></jsp:include>
 
 </body>
 </html>

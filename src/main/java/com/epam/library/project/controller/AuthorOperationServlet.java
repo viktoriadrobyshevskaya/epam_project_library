@@ -1,6 +1,6 @@
 package com.epam.library.project.controller;
 
-import com.epam.library.project.service.BookService;
+import com.epam.library.project.service.AuthorService;
 import com.epam.library.project.service.exception.ServiceException;
 import com.epam.library.project.service.factory.ServiceFactory;
 
@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "bookOperation", urlPatterns = {"/bookOperation"})
-public class BookOperationServlet extends HttpServlet {
+@WebServlet(name = "authorOperation", urlPatterns = {"/authorOperation"})
+public class AuthorOperationServlet extends HttpServlet {
 
-    private final BookService bookService = ServiceFactory.getInstance().getBookService();
+    private final AuthorService authorService = ServiceFactory.getInstance().getAuthorService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,16 +36,16 @@ public class BookOperationServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
         if (request.getParameterMap().get("remove") != null) {
-            int id = Integer.parseInt(request.getParameterMap().get("book_id")[0]);
-            bookService.deleteBookById(id);
-            request.setAttribute("books", bookService.showAllBooks());
-            response.sendRedirect(request.getContextPath() + "/books");
+            int id = Integer.parseInt(request.getParameterMap().get("author_id")[0]);
+            authorService.removeAuthor(id);
+            request.setAttribute("authors", authorService.getAllAuthors());
+            response.sendRedirect(request.getContextPath() + "/authors");
         } else if (request.getParameterMap().get("edit") != null) {
-            int bookId = Integer.parseInt(request.getParameterMap().get("book_id")[0]);
-            request.setAttribute("edit-book", bookService.findBookById(bookId));
-            request.getRequestDispatcher("/editBook.jsp").forward(request, response);
-        }else if (request.getParameterMap().get("addBook") != null) {
-            request.getRequestDispatcher("/addBook.jsp").forward(request, response);
+            int authorId = Integer.parseInt(request.getParameterMap().get("author_id")[0]);
+            request.setAttribute("edit-author", authorService.getById(authorId));
+            request.getRequestDispatcher("/editAuthor.jsp").forward(request, response);
+        }else if (request.getParameterMap().get("addAuthor") != null) {
+            request.getRequestDispatcher("/addAuthor.jsp").forward(request, response);
         }
     }
 }

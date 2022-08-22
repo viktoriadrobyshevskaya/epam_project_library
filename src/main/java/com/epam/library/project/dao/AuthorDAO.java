@@ -8,6 +8,7 @@ import java.util.List;
 public interface AuthorDAO {
     public void addAuthor(Author author) throws DAOException;
     public void removeAuthor(int id) throws DAOException;
+    public void updateAuthor(int id, Author author) throws DAOException;
     public Author getById(int id) throws DAOException;
     public List<Author> getAllAuthors() throws DAOException;
 

@@ -1,58 +1,58 @@
 package com.epam.library.project.service.impl;
 
-import com.epam.library.project.dao.BookDAO;
+import com.epam.library.project.dao.AuthorDAO;
 import com.epam.library.project.dao.exception.DAOException;
 import com.epam.library.project.dao.factory.DAOFactory;
-import com.epam.library.project.entity.Book;
-import com.epam.library.project.service.BookService;
+import com.epam.library.project.entity.Author;
+import com.epam.library.project.service.AuthorService;
 import com.epam.library.project.service.exception.ServiceException;
 
 import java.util.List;
 
-public class BookServiceImpl implements BookService {
+public class AuthorServiceImpl implements AuthorService {
 
-    private final BookDAO bookDAO = DAOFactory.getInstance().getBookDAO();
+    private final AuthorDAO authorDAO = DAOFactory.getInstance().getAuthorDAO();
 
     @Override
-    public List<Book> showAllBooks() throws ServiceException {
+    public void addAuthor(Author author) throws ServiceException {
         try {
-            return bookDAO.showAllBooks();
+            authorDAO.addAuthor(author);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
     }
 
     @Override
-    public void addBook(Book book) throws ServiceException {
+    public void removeAuthor(int id) throws ServiceException {
         try {
-            bookDAO.addBook(book);
+            authorDAO.removeAuthor(id);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
     }
 
     @Override
-    public void deleteBookById(int id) throws ServiceException {
+    public void updateAuthor(int id, Author author) throws ServiceException {
         try {
-            bookDAO.deleteBookById(id);
+            authorDAO.updateAuthor(id, author);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
     }
 
     @Override
-    public void updateBookById(int id, Book book) throws ServiceException {
+    public Author getById(int id) throws ServiceException {
         try {
-            bookDAO.updateBookById(id, book);
+            return authorDAO.getById(id);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
     }
 
     @Override
-    public Book findBookById(int bookId) throws ServiceException {
+    public List<Author> getAllAuthors() throws ServiceException {
         try {
-            return bookDAO.findBookById(bookId);
+            return authorDAO.getAllAuthors();
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

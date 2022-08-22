@@ -8,7 +8,12 @@ import java.util.List;
 public interface BookService {
 
     public List<Book> showAllBooks() throws ServiceException;
+
     public void addBook(Book book) throws ServiceException;
+
     public void deleteBookById(int id) throws ServiceException;
+
     public void updateBookById(int id, Book book) throws ServiceException;
+
+    public Book findBookById(int bookId) throws ServiceException;
 }

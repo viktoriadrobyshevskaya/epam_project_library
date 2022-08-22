@@ -1,7 +1,7 @@
 package com.epam.library.project.controller;
 
-import com.epam.library.project.entity.Book;
-import com.epam.library.project.service.BookService;
+import com.epam.library.project.entity.Author;
+import com.epam.library.project.service.AuthorService;
 import com.epam.library.project.service.exception.ServiceException;
 import com.epam.library.project.service.factory.ServiceFactory;
 
@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "editBook", urlPatterns = {"/editBook"})
-public class EditBookServlet extends HttpServlet {
+@WebServlet(name = "editAuthor", urlPatterns = {"/editAuthor"})
+public class EditAuthorServlet extends HttpServlet {
 
-    private final BookService bookService = ServiceFactory.getInstance().getBookService();
+    private final AuthorService authorService = ServiceFactory.getInstance().getAuthorService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,18 +37,18 @@ public class EditBookServlet extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
-        int book_id = Integer.parseInt(request.getParameterMap().get("book_id")[0]);
+        int author_id = Integer.parseInt(request.getParameterMap().get("author_id")[0]);
 
-        String newTitle = request.getParameter("book_title");
-        int newAuthor = Integer.parseInt(request.getParameter("book_author"));
-        String newYear = request.getParameter("book_year");
-        int newCopies = Integer.parseInt(request.getParameter("book_number"));
+        String newName = request.getParameter("author_name");
+        String newMiddleName = request.getParameter("author_middleName");
+        String newSurname = request.getParameter("author_surname");
+        int newYearOfBirthday = Integer.parseInt(request.getParameter("author_year"));
 
-        bookService.updateBookById(book_id, new Book(newTitle, newAuthor, newYear, newCopies));
+        authorService.updateAuthor(author_id, new Author(newName, newMiddleName, newSurname, newYearOfBirthday));
 
-        List<Book> books = bookService.showAllBooks();
-        request.setAttribute("books", books);
-        response.sendRedirect(request.getContextPath() + "/books");
+        List<Author> authors = authorService.getAllAuthors();
+        request.setAttribute("authors", authors);
+        response.sendRedirect(request.getContextPath() + "/authors");
     }
 
 }

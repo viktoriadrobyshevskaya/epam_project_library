@@ -8,8 +8,12 @@ import java.util.List;
 public interface BookDAO {
 
     public List<Book> showAllBooks() throws DAOException;
+
     public void addBook(Book book) throws DAOException;
+
     public void deleteBookById(int id) throws DAOException;
+
     public void updateBookById(int id, Book book) throws DAOException;
 
+    public Book findBookById(int bookId) throws DAOException;
 }

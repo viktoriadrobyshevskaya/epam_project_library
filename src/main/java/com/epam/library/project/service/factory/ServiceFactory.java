@@ -1,19 +1,19 @@
 package com.epam.library.project.service.factory;
 
+import com.epam.library.project.service.AuthorService;
 import com.epam.library.project.service.BookService;
-import com.epam.library.project.service.ClientService;
-import com.epam.library.project.service.LibraryService;
+import com.epam.library.project.service.UserService;
+import com.epam.library.project.service.impl.AuthorServiceImpl;
 import com.epam.library.project.service.impl.BookServiceImpl;
-import com.epam.library.project.service.impl.ClientServiceImpl;
-import com.epam.library.project.service.impl.LibraryServiceImpl;
+import com.epam.library.project.service.impl.UserServiceImpl;
 
 public final class ServiceFactory {
 
     private static final ServiceFactory instance = new ServiceFactory();
 
-    private final ClientService clientService = new ClientServiceImpl();
-    private final LibraryService libraryService = new LibraryServiceImpl();
     private final BookService bookService = new BookServiceImpl();
+    private final AuthorService authorService = new AuthorServiceImpl();
+    private final UserService userService = new UserServiceImpl();
 
     private ServiceFactory() {
     }
@@ -22,15 +22,15 @@ public final class ServiceFactory {
         return instance;
     }
 
-    public ClientService getClientService() {
-        return clientService;
-    }
-
-    public LibraryService getLibraryService() {
-        return libraryService;
-    }
-
     public BookService getBookService() {
         return bookService;
+    }
+
+    public AuthorService getAuthorService(){
+        return authorService;
+    }
+
+    public UserService getUserService(){
+        return userService;
     }
 }

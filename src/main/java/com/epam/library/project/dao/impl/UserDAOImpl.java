@@ -13,79 +13,19 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
 
     @Override
-    public void signIn(String login, String password) throws DAOException {
+    public void updateUser(int userId, User user) throws DAOException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(UserQuery.SIGN_IN);
+            preparedStatement = connection.prepareStatement(UserQuery.UPDATE_USER);
 
-            preparedStatement.setString(1, login);
-            preparedStatement.setString(2, password);
-            resultSet = preparedStatement.executeQuery();
+            preparedStatement.setString(1, user.getPassword());
+            preparedStatement.setInt(2, user.getRoleId());
+            preparedStatement.setInt(3, userId);
 
-            if (!resultSet.next()) {
-                throw new DAOException("Пользователь с таким логином и паролем не найден.");
-            }
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException(e);
-        } finally {
-            ConnectionPool.getInstance().closeConnectionQueue(connection, preparedStatement, resultSet);
-        }
-    }
-
-    @Override
-    public void registration(User user) throws DAOException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(UserQuery.REGISTRATION_USER);
-
-            preparedStatement.setString(1, user.getLogin());
-            preparedStatement.setString(2, user.getPassword());
-            preparedStatement.setInt(3, user.getRoleId());
             preparedStatement.executeUpdate();
-
-        } catch (ConnectionPoolException | SQLException e) {
-            throw new DAOException(e);
-        } finally {
-            ConnectionPool.getInstance().closeConnectionQueue(connection, preparedStatement);
-        }
-    }
-
-    @Override
-    public void updatePassword(int userId, int password) throws DAOException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(UserQuery.UPDATE_PASSWORD);
-
-            preparedStatement.setInt(1, userId);
-            preparedStatement.setInt(2, password);
-
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException(e);
-        } finally {
-            ConnectionPool.getInstance().closeConnectionQueue(connection, preparedStatement);
-        }
-    }
-
-    @Override
-    public void updateEmail(int userId, int email) throws DAOException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(UserQuery.UPDATE_EMAIL);
-
-            preparedStatement.setInt(1, userId);
-            preparedStatement.setInt(2, email);
 
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException(e);
@@ -126,7 +66,24 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User findUserByLogin(String login) throws DAOException {
+    public void addUser(User user) throws DAOException {
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement statement = connection.prepareStatement(BookQuery.ADD_BOOK)) {
+            statement.setString(1, user.getLogin());
+            statement.setString(2, user.getPassword());
+            statement.setInt(3, user.getRoleId());
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DAOException("Something wrong!" + e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Something wrong with Connection Pool!" + e);
+        }
+    }
+
+    @Override
+    public User findUser(User user) throws DAOException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -134,24 +91,22 @@ public class UserDAOImpl implements UserDAO {
         try {
             connection = ConnectionPool.getInstance().takeConnection();
             preparedStatement = connection.prepareStatement(UserQuery.FIND_USER);
-            preparedStatement.setString(1, login);
+            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, user.getPassword());
             resultSet = preparedStatement.executeQuery();
 
-            User user = null;
-
-            if (!resultSet.next()) {
-                throw new DAOException("Пользователь с таким логином и паролем не найден.");
-            }
+            User foundUser = null;
 
             while (resultSet.next()) {
                 int userId = resultSet.getInt(1);
+                String login = resultSet.getString(2);
                 String password = resultSet.getString(3);
                 int roleId = resultSet.getInt(4);
 
-                user = new User(userId, login, password, roleId);
+                foundUser = new User(userId, login, password, roleId);
             }
 
-            return user;
+            return foundUser;
 
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException(e);
@@ -159,6 +114,7 @@ public class UserDAOImpl implements UserDAO {
             ConnectionPool.getInstance().closeConnectionQueue(connection, preparedStatement, resultSet);
         }
     }
+
 
     @Override
     public void deleteUser(int id) throws DAOException {

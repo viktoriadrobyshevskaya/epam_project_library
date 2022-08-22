@@ -1,7 +1,7 @@
 package com.epam.library.project.controller;
 
-import com.epam.library.project.entity.Book;
-import com.epam.library.project.service.BookService;
+import com.epam.library.project.entity.Author;
+import com.epam.library.project.service.AuthorService;
 import com.epam.library.project.service.exception.ServiceException;
 import com.epam.library.project.service.factory.ServiceFactory;
 
@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "addBook", urlPatterns = {"/addBook"})
-public class AddBookServlet extends HttpServlet {
+@WebServlet(name = "author", urlPatterns = {"/authors"})
+public class AllAuthorsServlet extends HttpServlet {
 
-    private final BookService bookService = ServiceFactory.getInstance().getBookService();
+    private final AuthorService authorService = ServiceFactory.getInstance().getAuthorService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,14 +37,8 @@ public class AddBookServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServiceException {
-        Book newBook = new Book();
-        newBook.setTitle(req.getParameter("book_title"));
-        newBook.setId_author(Integer.parseInt(req.getParameter("book_author")));
-        newBook.setYearOfPublication(req.getParameter("book_year"));
-        newBook.setNumberOfCopies(Integer.parseInt(req.getParameter("book_number")));
-        bookService.addBook(newBook);
-        List<Book> books = bookService.showAllBooks();
-        req.setAttribute("books", books);
-        resp.sendRedirect(req.getContextPath() + "/books");
+            List<Author> authors = authorService.getAllAuthors();
+            req.setAttribute("authors", authors);
+            req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 }
