@@ -12,6 +12,8 @@ public interface UserDAO {
 
     public User findUser(User user) throws DAOException;
 
+    public User findUserById(int id) throws DAOException;
+
     public void deleteUser(int id) throws DAOException;
 
     public void updateUser(int userId, User user) throws DAOException;

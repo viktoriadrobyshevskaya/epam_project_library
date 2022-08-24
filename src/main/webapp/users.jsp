@@ -6,10 +6,9 @@
 
         <input type="hidden" name="user_id" value="${user.getId()}">
 
-        <p><c:out value="${user.getTitle()}"/>
-            <c:out value="${user.getId_author()}"/>
-            <c:out value="${user.getYearOfPublication()}"/>
-            <c:out value="${user.getNumberOfCopies()}"/>
+        <p><c:out value="${user.getLogin()}"/>
+            <c:out value="${user.getPassword()}"/>
+            <c:out value="${user.getRoleId()}"/>
             <button name="remove" value="remove">remove</button>
             <button name="edit" value="edit">edit</button>
         </p>

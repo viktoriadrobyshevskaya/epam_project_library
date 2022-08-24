@@ -1,5 +1,7 @@
 package com.epam.library.project.entity;
 
+import java.util.Objects;
+
 public class UserDetails {
 
     private int id;
@@ -9,7 +11,19 @@ public class UserDetails {
     private String phone;
     private String address;
 
+    public UserDetails() {
+    }
+
     public UserDetails(int userId, String name, String surname, String phone, String address) {
+        this.userId = userId;
+        this.name = name;
+        this.surname = surname;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    public UserDetails(int id, int userId, String name, String surname, String phone, String address) {
+        this.id = id;
         this.userId = userId;
         this.name = name;
         this.surname = surname;
@@ -63,6 +77,19 @@ public class UserDetails {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDetails that = (UserDetails) o;
+        return id == that.id && userId == that.userId && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(phone, that.phone) && Objects.equals(address, that.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userId, name, surname, phone, address);
     }
 
     @Override

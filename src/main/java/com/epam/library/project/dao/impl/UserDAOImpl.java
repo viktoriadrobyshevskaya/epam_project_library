@@ -58,8 +58,10 @@ public class UserDAOImpl implements UserDAO {
 
             return users;
 
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException(e);
+        } catch (SQLException e) {
+            throw new DAOException("Something wrong!" + e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Something wrong with Connection Pool!" + e);
         } finally {
             ConnectionPool.getInstance().closeConnectionQueue(connection, preparedStatement, resultSet);
         }
@@ -68,7 +70,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void addUser(User user) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
-             PreparedStatement statement = connection.prepareStatement(BookQuery.ADD_BOOK)) {
+             PreparedStatement statement = connection.prepareStatement(UserQuery.ADD_USER)) {
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setInt(3, user.getRoleId());
@@ -108,8 +110,45 @@ public class UserDAOImpl implements UserDAO {
 
             return foundUser;
 
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException(e);
+        } catch (SQLException e) {
+            throw new DAOException("Something wrong!" + e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Something wrong with Connection Pool!" + e);
+        } finally {
+            ConnectionPool.getInstance().closeConnectionQueue(connection, preparedStatement, resultSet);
+        }
+    }
+
+    @Override
+    public User findUserById(int id) throws DAOException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            preparedStatement = connection.prepareStatement(UserQuery.FIND_USER_BY_ID);
+            preparedStatement.setInt(1, id);
+
+            resultSet = preparedStatement.executeQuery();
+
+            User foundUser = null;
+
+            while (resultSet.next()) {
+                int userId = resultSet.getInt(1);
+                String login = resultSet.getString(2);
+                String password = resultSet.getString(3);
+                int roleId = resultSet.getInt(4);
+
+                foundUser = new User(userId, login, password, roleId);
+            }
+
+            return foundUser;
+
+        } catch (SQLException e) {
+            throw new DAOException("Something wrong!" + e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Something wrong with Connection Pool!" + e);
         } finally {
             ConnectionPool.getInstance().closeConnectionQueue(connection, preparedStatement, resultSet);
         }
@@ -122,8 +161,10 @@ public class UserDAOImpl implements UserDAO {
              PreparedStatement statement = connection.prepareStatement(UserQuery.DELETE_USER)) {
             statement.setInt(1, id);
             statement.executeUpdate();
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException("Something wrong!" + e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Something wrong with Connection Pool!" + e);
         }
     }
 }
