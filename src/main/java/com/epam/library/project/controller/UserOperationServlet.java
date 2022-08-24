@@ -1,5 +1,6 @@
 package com.epam.library.project.controller;
 
+import com.epam.library.project.service.UserDetailsService;
 import com.epam.library.project.service.UserService;
 import com.epam.library.project.service.exception.ServiceException;
 import com.epam.library.project.service.factory.ServiceFactory;
@@ -15,6 +16,7 @@ import java.io.IOException;
 public class UserOperationServlet extends HttpServlet {
 
     private final UserService userService = ServiceFactory.getInstance().getUserService();
+    private final UserDetailsService userDetailsService = ServiceFactory.getInstance().getUserDetailsService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,7 +46,11 @@ public class UserOperationServlet extends HttpServlet {
             int id = Integer.parseInt(request.getParameterMap().get("user_id")[0]);
             request.setAttribute("edit-user", userService.findUserById(id));
             request.getRequestDispatcher("/editUser.jsp").forward(request, response);
-        }else if (request.getParameterMap().get("addUser") != null) {
+        } else if (request.getParameterMap().get("showDetails") != null) {
+            int id = Integer.parseInt(request.getParameterMap().get("user_id")[0]);
+            request.setAttribute("userDetails", userDetailsService.findUserDetailsById(id));
+            request.getRequestDispatcher("/showDetails.jsp").forward(request, response);
+        } else if (request.getParameterMap().get("addUser") != null) {
             request.getRequestDispatcher("/addUser.jsp").forward(request, response);
         }
     }

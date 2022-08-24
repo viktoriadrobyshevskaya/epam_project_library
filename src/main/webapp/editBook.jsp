@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<c:set var="addedUser" value="${requestScope.get('edit-book')}" />
+<c:set var="addedUser" value="${requestScope.get('edit-book')}"/>
 
 <p>Please, edit book: ${addedUser.getTitle()}</p>
 
