@@ -38,6 +38,7 @@ public class AllUsersServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServiceException {
             List<User> users = userService.getAllUsers();
+            req.setAttribute("currentPage", "users");
             req.setAttribute("users", users);
             req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }

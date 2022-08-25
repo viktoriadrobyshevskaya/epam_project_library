@@ -51,7 +51,7 @@ public class UserOperationServlet extends HttpServlet {
             request.setAttribute("userDetails", userDetailsService.findUserDetailsById(id));
             request.getRequestDispatcher("/showDetails.jsp").forward(request, response);
         } else if (request.getParameterMap().get("addUser") != null) {
-            request.getRequestDispatcher("/addUser.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/addUser.jsp");
         }
     }
 }

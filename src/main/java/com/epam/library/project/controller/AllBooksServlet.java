@@ -19,6 +19,7 @@ import java.util.List;
 public class AllBooksServlet extends HttpServlet {
 
     private final BookService bookService = ServiceFactory.getInstance().getBookService();
+    private final AuthorService authorService = ServiceFactory.getInstance().getAuthorService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,8 +40,11 @@ public class AllBooksServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServiceException {
-            List<Book> books = bookService.showAllBooks();
+        List<Book> books = bookService.showAllBooks();
+        List<Author> authors = authorService.getAllAuthors();
+            req.setAttribute("currentPage", "books");
             req.setAttribute("books", books);
+            req.setAttribute("authors", authors);
             req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 }

@@ -38,3 +38,5 @@
 <form action="userOperation" method="POST">
     <button name="addUser" value="addUser">+add user</button>
 </form>
+<br>
+<jsp:include page="menuList.jsp"></jsp:include>

@@ -10,9 +10,23 @@
 
 <h3> Welcome to Victory Library </h3>
 
-<jsp:include page="users.jsp"></jsp:include>
-<jsp:include page="books.jsp"></jsp:include>
-<jsp:include page="authors.jsp"></jsp:include>
+<c:choose>
+    <c:when test="${currentPage eq 'books'}">
+        <jsp:include page="books.jsp"></jsp:include>
 
+    </c:when>
+
+    <c:when test="${currentPage eq 'users'}">
+        <jsp:include page="users.jsp"></jsp:include>
+    </c:when>
+
+    <c:when test="${currentPage eq 'authors'}">
+        <jsp:include page="authors.jsp"></jsp:include>
+    </c:when>
+
+    <c:otherwise>
+        <jsp:include page="menuList.jsp"></jsp:include>
+    </c:otherwise>
+</c:choose>
 </body>
 </html>

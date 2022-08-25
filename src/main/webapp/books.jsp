@@ -18,7 +18,9 @@
                 <input type="hidden" name="book_id" value="${book.getId()}">
 
                 <td><c:out value="${book.getTitle()}"/></td>
+
                 <td><c:out value="${book.getId_author()}"/></td>
+
                 <td><c:out value="${book.getYearOfPublication()}"/></td>
                 <td><c:out value="${book.getNumberOfCopies()}"/></td>
                 <td>
@@ -38,3 +40,5 @@
 <form action="bookOperation" method="POST">
     <button name="addBook" value="addBook">+add book</button>
 </form>
+<br>
+<jsp:include page="menuList.jsp"></jsp:include>

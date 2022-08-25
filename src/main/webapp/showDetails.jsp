@@ -11,15 +11,14 @@
 
     </tr>
 
-    <c:forEach var="userDetails" items="${'userDetails'}">
+    <tr>
+        <input type="hidden" name="user_id" value="${userDetails.getUserId()}">
+        <td><c:out value="${userDetails.getName()}"/></td>
+        <td><c:out value="${userDetails.getSurname()}"/></td>
+        <td><c:out value="${userDetails.getPhone()}"/></td>
+        <td><c:out value="${userDetails.getAddress()}"/></td>
+    </tr>
 
-            <tr>
-                <input type="hidden" name="user_id" value="${userDetails.getUserId()}">
-                <td><c:out value="${userDetails.getName()}"/></td>
-                <td><c:out value="${userDetails.getSurname()}"/></td>
-                <td><c:out value="${userDetails.getPhone()}"/></td>
-                <td><c:out value="${userDetails.getAddress()}"/></td>
-            </tr>
-
-    </c:forEach>
 </table>
+
+<a href="/library/users">Back</a>

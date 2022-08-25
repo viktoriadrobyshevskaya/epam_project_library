@@ -38,3 +38,5 @@
 <form action="authorOperation" method="POST">
     <button name="addAuthor" value="addAuthor">+add author</button>
 </form>
+<br>
+<jsp:include page="menuList.jsp"></jsp:include>

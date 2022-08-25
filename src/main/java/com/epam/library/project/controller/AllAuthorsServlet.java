@@ -38,6 +38,7 @@ public class AllAuthorsServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServiceException {
             List<Author> authors = authorService.getAllAuthors();
+            req.setAttribute("currentPage", "authors");
             req.setAttribute("authors", authors);
             req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }

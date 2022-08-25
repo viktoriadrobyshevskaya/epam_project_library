@@ -6,21 +6,22 @@ import com.epam.library.project.service.exception.ServiceException;
 import com.epam.library.project.service.factory.ServiceFactory;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+@WebServlet(name = "logIn", urlPatterns = {"/login"})
 public class LogInServlet extends HttpServlet {
 
     private final UserService userService = ServiceFactory.getInstance().getUserService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            processRequest(req, resp);
-        } catch (ServiceException e) {
-            throw new RuntimeException(e);
-        }
+        req.getRequestDispatcher("/logIn.jsp").forward(req, resp);
+
     }
 
     @Override
@@ -36,8 +37,13 @@ public class LogInServlet extends HttpServlet {
         String login = req.getParameter("loginInput");
         String password = req.getParameter("passwordInput");
         User user = userService.findUser(new User(login, password));
+        HttpSession session = req.getSession(true);
         if (user != null){
-            req.getRequestDispatcher("/index.jsp").forward(req, resp);
+            session.setAttribute("user", user);
+            resp.sendRedirect(req.getContextPath() + "/books");
+        } else {
+            req.setAttribute("error", "User with this data does not exist!");
+            req.getRequestDispatcher("/logIn.jsp").forward(req, resp);
         }
     }
 }
