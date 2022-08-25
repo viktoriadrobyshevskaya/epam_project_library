@@ -8,11 +8,12 @@
 
 <form action="login" method="POST">
 
-    Введите логин: <input type="text" name="loginInput" placeholder="Username">
+    Enter the login: <input type="text" name="loginInput" placeholder="Username">
     <br>
-    Введите пароль: <input type="password" name="passwordInput" placeholder="Password">
+    Enter the password: <input type="password" name="passwordInput" placeholder="Password">
     <br>
-    <button type="submit" name="buttonSubmit">submit</button>
+    <br>
+    <button type="submit" name="buttonSubmit">Log In</button>
 
 </form>
 

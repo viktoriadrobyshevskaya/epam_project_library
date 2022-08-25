@@ -9,6 +9,8 @@ import com.epam.library.project.dao.impl.UserDAOImpl;
 import com.epam.library.project.entity.Author;
 import com.epam.library.project.entity.Book;
 import com.epam.library.project.entity.User;
+import com.epam.library.project.service.exception.ServiceException;
+import com.epam.library.project.service.factory.ServiceFactory;
 
 import java.util.List;
 
@@ -23,14 +25,12 @@ public class Main {
 //        } catch (DAOException e) {
 //            throw new RuntimeException(e);
 //        }
-
-
-//        DAOFactory daoFactory = DAOFactory.getInstance();
-//        BookDAO bookDAO = daoFactory.getBookDAO();
+//
+//        ServiceFactory serviceFactory = ServiceFactory.getInstance();
 //        try {
-//            List<Book> books = bookDAO.showAllBooks();
+//            List<Book> books = serviceFactory.getBookService().showAllBooks();
 //            System.out.println(books);
-//        } catch (DAOException e) {
+//        } catch (ServiceException e) {
 //            throw new RuntimeException(e);
 //        }
 
@@ -43,12 +43,5 @@ public class Main {
 //            throw new RuntimeException(e);
 //        }
 
-//        DAOFactory daoFactory = DAOFactory.getInstance();
-//        UserDAO userDAO = daoFactory.getUserDAO();
-//        try {
-//            userDAO.deleteUser(2);
-//        } catch (DAOException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 }

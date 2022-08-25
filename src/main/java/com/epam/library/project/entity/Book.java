@@ -8,6 +8,7 @@ public class Book {
     private int id_author;
     private String yearOfPublication;
     private int numberOfCopies;
+    private Author author;
 
     public Book() {
     }
@@ -67,17 +68,25 @@ public class Book {
         this.numberOfCopies = numberOfCopies;
     }
 
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id == book.id && id_author == book.id_author && numberOfCopies == book.numberOfCopies && Objects.equals(title, book.title) && Objects.equals(yearOfPublication, book.yearOfPublication);
+        return id == book.id && id_author == book.id_author && numberOfCopies == book.numberOfCopies && Objects.equals(title, book.title) && Objects.equals(yearOfPublication, book.yearOfPublication) && Objects.equals(author, book.author);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, id_author, yearOfPublication, numberOfCopies);
+        return Objects.hash(id, title, id_author, yearOfPublication, numberOfCopies, author);
     }
 
     @Override
@@ -88,6 +97,7 @@ public class Book {
                 ", id_author=" + id_author +
                 ", yearOfPublication='" + yearOfPublication + '\'' +
                 ", numberOfCopies=" + numberOfCopies +
+                ", author=" + author +
                 '}';
     }
 }

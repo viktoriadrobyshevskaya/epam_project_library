@@ -1,12 +1,15 @@
 <%@ taglib uri="/WEB-INF/c.tld" prefix="c" %>
 <%@ taglib uri="/WEB-INF/fmt.tld" prefix="fmt" %>
 
-
+<a href="/library/logOut">Log Out</a>
+<br>
+<br>
+<br>
 <table>
     <tr>
         <th>Login</th>
         <th>Password</th>
-        <th>Role ID</th>
+        <th>Role</th>
         <th>Operations</th>
 
     </tr>
@@ -21,7 +24,7 @@
 
                 <td><c:out value="${user.getLogin()}"/></td>
                 <td><c:out value="${user.getPassword()}"/></td>
-                <td><c:out value="${user.getRoleId()}"/></td>
+                <td><c:out value="${user.getRole().getTitle()}"/></td>
                 <td>
                     <button name="remove" value="remove">remove</button>
                     <button name="edit" value="edit">edit</button>

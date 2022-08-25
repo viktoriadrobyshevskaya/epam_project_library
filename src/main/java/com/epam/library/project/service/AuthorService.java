@@ -12,7 +12,7 @@ public interface AuthorService {
 
     public void updateAuthor(int id, Author author) throws ServiceException;
 
-    public Author getById(int id) throws ServiceException;
+    public Author getAuthorById(int id) throws ServiceException;
 
     public List<Author> getAllAuthors() throws ServiceException;
 

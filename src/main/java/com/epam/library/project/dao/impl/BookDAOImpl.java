@@ -4,6 +4,7 @@ import com.epam.library.project.dao.BookDAO;
 import com.epam.library.project.dao.connection.ConnectionPool;
 import com.epam.library.project.dao.connection.ConnectionPoolException;
 import com.epam.library.project.dao.exception.DAOException;
+import com.epam.library.project.dao.factory.DAOFactory;
 import com.epam.library.project.entity.Book;
 
 import java.sql.Connection;
@@ -35,7 +36,9 @@ public class BookDAOImpl implements BookDAO {
                 String year = resultSet.getString(4);
                 int numberOfCopies = resultSet.getInt(5);
 
-                books.add(new Book(id, title, id_author, year, numberOfCopies));
+                Book book = new Book(id, title, id_author, year, numberOfCopies);
+                book.setAuthor(DAOFactory.getInstance().getAuthorDAO().getAuthorById(id_author));
+                books.add(book);
             }
 
             return books;

@@ -42,7 +42,7 @@ public class AuthorOperationServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/authors");
         } else if (request.getParameterMap().get("edit") != null) {
             int authorId = Integer.parseInt(request.getParameterMap().get("author_id")[0]);
-            request.setAttribute("edit-author", authorService.getById(authorId));
+            request.setAttribute("edit-author", authorService.getAuthorById(authorId));
             request.getRequestDispatcher("/editAuthor.jsp").forward(request, response);
         }else if (request.getParameterMap().get("addAuthor") != null) {
             request.getRequestDispatcher("/addAuthor.jsp").forward(request, response);

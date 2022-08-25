@@ -1,6 +1,9 @@
 <%@ taglib uri="/WEB-INF/c.tld" prefix="c" %>
 <%@ taglib uri="/WEB-INF/fmt.tld" prefix="fmt" %>
-
+<a href="/library/logOut">Log Out</a>
+<br>
+<br>
+<br>
 <table>
     <tr>
         <th>Name</th>

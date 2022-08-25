@@ -66,7 +66,7 @@ public class AuthorDAOImpl implements AuthorDAO {
     }
 
     @Override
-    public Author getById(int id) throws DAOException {
+    public Author getAuthorById(int id) throws DAOException {
 
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement statement = connection.prepareStatement(AuthorQuery.FIND_AUTHOR)) {

@@ -20,4 +20,6 @@
     <br>
     <button name="save" value="save">save</button>
 </form>
-
+<br>
+<br>
+<a href="/library/authors">Back</a>

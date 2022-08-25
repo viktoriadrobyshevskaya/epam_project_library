@@ -1,10 +1,13 @@
 package com.epam.library.project.entity;
 
+import com.epam.library.project.dao.impl.RoleQuery;
+
 public class User {
     private int id;
     private String login;
     private String password;
     private int roleId;
+    private Role role;
 
     public User() {
     }
@@ -57,6 +60,14 @@ public class User {
 
     public void setRoleId(int roleId) {
         this.roleId = roleId;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override

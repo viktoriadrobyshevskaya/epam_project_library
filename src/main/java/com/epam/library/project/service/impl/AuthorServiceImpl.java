@@ -41,9 +41,9 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Author getById(int id) throws ServiceException {
+    public Author getAuthorById(int id) throws ServiceException {
         try {
-            return authorDAO.getById(id);
+            return authorDAO.getAuthorById(id);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

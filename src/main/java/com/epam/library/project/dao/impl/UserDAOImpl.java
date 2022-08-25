@@ -4,6 +4,7 @@ import com.epam.library.project.dao.UserDAO;
 import com.epam.library.project.dao.connection.ConnectionPool;
 import com.epam.library.project.dao.connection.ConnectionPoolException;
 import com.epam.library.project.dao.exception.DAOException;
+import com.epam.library.project.dao.factory.DAOFactory;
 import com.epam.library.project.entity.User;
 
 import java.sql.*;
@@ -53,7 +54,9 @@ public class UserDAOImpl implements UserDAO {
                 String password = resultSet.getString(3);
                 int roleId = resultSet.getInt(4);
 
-                users.add(new User(userId, login, password, roleId));
+                User user = new User(userId, login, password, roleId);
+                user.setRole(DAOFactory.getInstance().getRoleDAO().getRoleById(roleId));
+                users.add(user);
             }
 
             return users;
