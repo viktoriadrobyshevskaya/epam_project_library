@@ -20,7 +20,7 @@ public class UserDAOImpl implements UserDAO {
 
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(UserQuery.UPDATE_USER);
+            preparedStatement = connection.prepareStatement(SQLQuery.UPDATE_USER);
 
             preparedStatement.setString(1, user.getPassword());
             preparedStatement.setInt(2, user.getRoleId());
@@ -43,7 +43,7 @@ public class UserDAOImpl implements UserDAO {
 
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(UserQuery.All_USERS);
+            preparedStatement = connection.prepareStatement(SQLQuery.All_USERS);
 
             resultSet = preparedStatement.executeQuery();
 
@@ -73,7 +73,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void addUser(User user) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
-             PreparedStatement statement = connection.prepareStatement(UserQuery.ADD_USER)) {
+             PreparedStatement statement = connection.prepareStatement(SQLQuery.ADD_USER)) {
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setInt(3, user.getRoleId());
@@ -95,7 +95,7 @@ public class UserDAOImpl implements UserDAO {
 
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(UserQuery.FIND_USER);
+            preparedStatement = connection.prepareStatement(SQLQuery.FIND_USER);
             preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, user.getPassword());
             resultSet = preparedStatement.executeQuery();
@@ -130,7 +130,7 @@ public class UserDAOImpl implements UserDAO {
 
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(UserQuery.FIND_USER_BY_ID);
+            preparedStatement = connection.prepareStatement(SQLQuery.FIND_USER_BY_ID);
             preparedStatement.setInt(1, id);
 
             resultSet = preparedStatement.executeQuery();
@@ -161,7 +161,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void deleteUser(int id) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
-             PreparedStatement statement = connection.prepareStatement(UserQuery.DELETE_USER)) {
+             PreparedStatement statement = connection.prepareStatement(SQLQuery.DELETE_USER)) {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {

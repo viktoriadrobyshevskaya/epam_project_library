@@ -24,7 +24,7 @@ public class BookDAOImpl implements BookDAO {
 
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(BookQuery.All_BOOKS);
+            preparedStatement = connection.prepareStatement(SQLQuery.All_BOOKS);
 
             resultSet = preparedStatement.executeQuery();
 
@@ -53,7 +53,7 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public void addBook(Book book) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
-             PreparedStatement statement = connection.prepareStatement(BookQuery.ADD_BOOK)) {
+             PreparedStatement statement = connection.prepareStatement(SQLQuery.ADD_BOOK)) {
             statement.setString(1, book.getTitle());
             statement.setInt(2, book.getId_author());
             statement.setString(3, book.getYearOfPublication());
@@ -70,7 +70,7 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public void deleteBookById(int id) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
-             PreparedStatement statement = connection.prepareStatement(BookQuery.DELETE_BOOK)) {
+             PreparedStatement statement = connection.prepareStatement(SQLQuery.DELETE_BOOK)) {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException | ConnectionPoolException e) {
@@ -85,7 +85,7 @@ public class BookDAOImpl implements BookDAO {
 
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(BookQuery.UPDATE_BOOK);
+            preparedStatement = connection.prepareStatement(SQLQuery.UPDATE_BOOK);
 
             preparedStatement.setString(1, book.getTitle());
             preparedStatement.setInt(2, book.getId_author());
@@ -109,7 +109,7 @@ public class BookDAOImpl implements BookDAO {
 
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(BookQuery.FIND_BOOK);
+            preparedStatement = connection.prepareStatement(SQLQuery.FIND_BOOK);
             preparedStatement.setInt(1, bookId);
             resultSet = preparedStatement.executeQuery();
 

@@ -4,8 +4,6 @@ import com.epam.library.project.dao.RoleDAO;
 import com.epam.library.project.dao.connection.ConnectionPool;
 import com.epam.library.project.dao.connection.ConnectionPoolException;
 import com.epam.library.project.dao.exception.DAOException;
-import com.epam.library.project.dao.factory.DAOFactory;
-import com.epam.library.project.entity.Book;
 import com.epam.library.project.entity.Role;
 
 import java.sql.Connection;
@@ -19,7 +17,7 @@ public class RoleDAOImpl implements RoleDAO {
     @Override
     public void addRole(Role role) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
-             PreparedStatement statement = connection.prepareStatement(RoleQuery.ADD_ROLE)) {
+             PreparedStatement statement = connection.prepareStatement(SQLQuery.ADD_ROLE)) {
             statement.setString(1, role.getTitle());
             statement.executeUpdate();
 
@@ -33,7 +31,7 @@ public class RoleDAOImpl implements RoleDAO {
     @Override
     public void deleteRole(int id) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
-             PreparedStatement statement = connection.prepareStatement(RoleQuery.DELETE_ROLE)) {
+             PreparedStatement statement = connection.prepareStatement(SQLQuery.DELETE_ROLE)) {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException | ConnectionPoolException e) {
@@ -49,7 +47,7 @@ public class RoleDAOImpl implements RoleDAO {
 
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(RoleQuery.FIND_ROLE);
+            preparedStatement = connection.prepareStatement(SQLQuery.FIND_ROLE);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
 
@@ -80,7 +78,7 @@ public class RoleDAOImpl implements RoleDAO {
         ResultSet resultSet = null;
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(RoleQuery.All_ROLES);
+            preparedStatement = connection.prepareStatement(SQLQuery.All_ROLES);
             resultSet = preparedStatement.executeQuery();
             List<Role> roles = new ArrayList<>();
             while (resultSet.next()) {

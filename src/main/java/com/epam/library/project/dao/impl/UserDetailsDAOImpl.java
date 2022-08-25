@@ -24,7 +24,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(UserDetailsQuery.All_USER_DETAILS);
+            preparedStatement = connection.prepareStatement(SQLQuery.All_USER_DETAILS);
 
             resultSet = preparedStatement.executeQuery();
 
@@ -54,7 +54,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
     @Override
     public void addUserDetails(UserDetails userDetails) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
-             PreparedStatement statement = connection.prepareStatement(UserDetailsQuery.ADD_USER_DETAILS)) {
+             PreparedStatement statement = connection.prepareStatement(SQLQuery.ADD_USER_DETAILS)) {
             statement.setInt(1, userDetails.getUserId());
             statement.setString(2, userDetails.getName());
             statement.setString(3, userDetails.getSurname());
@@ -78,7 +78,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(UserDetailsQuery.FIND_USER_DETAILS_BY_ID);
+            preparedStatement = connection.prepareStatement(SQLQuery.FIND_USER_DETAILS_BY_ID);
             preparedStatement.setInt(1, id);
 
             resultSet = preparedStatement.executeQuery();
@@ -111,7 +111,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
     @Override
     public void deleteUserDetails(int id) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
-             PreparedStatement statement = connection.prepareStatement(UserDetailsQuery.DELETE_USER_DETAILS)) {
+             PreparedStatement statement = connection.prepareStatement(SQLQuery.DELETE_USER_DETAILS)) {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -128,7 +128,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(UserDetailsQuery.UPDATE_USER_DETAILS);
+            preparedStatement = connection.prepareStatement(SQLQuery.UPDATE_USER_DETAILS);
 
             preparedStatement.setString(1, userDetails.getName());
             preparedStatement.setString(2, userDetails.getSurname());

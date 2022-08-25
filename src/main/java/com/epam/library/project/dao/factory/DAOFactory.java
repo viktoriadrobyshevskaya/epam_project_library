@@ -12,6 +12,7 @@ public class DAOFactory {
     private final AuthorDAO authorDAO = new AuthorDAOImpl();
     private final BookDAO bookDAO = new BookDAOImpl();
     private final RoleDAO roleDAO = new RoleDAOImpl();
+    private final OrderDAO orderDAO = new OrderDAOImpl();
 
     private DAOFactory() {
     }
@@ -32,11 +33,15 @@ public class DAOFactory {
         return userDAO;
     }
 
-    public UserDetailsDAO getUserDetailsDAO(){
+    public UserDetailsDAO getUserDetailsDAO() {
         return userDetailsDAO;
     }
 
-    public RoleDAO getRoleDAO(){
+    public RoleDAO getRoleDAO() {
         return roleDAO;
+    }
+
+    public OrderDAO getOrderDAO() {
+        return orderDAO;
     }
 }

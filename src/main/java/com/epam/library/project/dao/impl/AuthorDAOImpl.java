@@ -15,7 +15,7 @@ public class AuthorDAOImpl implements AuthorDAO {
     @Override
     public void addAuthor(Author author) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
-             PreparedStatement ps = connection.prepareStatement(AuthorQuery.ADD_AUTHOR)) {
+             PreparedStatement ps = connection.prepareStatement(SQLQuery.ADD_AUTHOR)) {
             ps.setString(1, author.getName());
             ps.setString(2, author.getMiddleName());
             ps.setString(3, author.getSurname());
@@ -31,7 +31,7 @@ public class AuthorDAOImpl implements AuthorDAO {
     @Override
     public void removeAuthor(int id) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
-             PreparedStatement statement = connection.prepareStatement(AuthorQuery.DELETE_AUTHOR)) {
+             PreparedStatement statement = connection.prepareStatement(SQLQuery.DELETE_AUTHOR)) {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -48,7 +48,7 @@ public class AuthorDAOImpl implements AuthorDAO {
 
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(AuthorQuery.UPDATE_AUTHOR);
+            preparedStatement = connection.prepareStatement(SQLQuery.UPDATE_AUTHOR);
 
             preparedStatement.setString(1, author.getName());
             preparedStatement.setString(2, author.getMiddleName());
@@ -69,7 +69,7 @@ public class AuthorDAOImpl implements AuthorDAO {
     public Author getAuthorById(int id) throws DAOException {
 
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
-             PreparedStatement statement = connection.prepareStatement(AuthorQuery.FIND_AUTHOR)) {
+             PreparedStatement statement = connection.prepareStatement(SQLQuery.FIND_AUTHOR)) {
 
             statement.setInt(1, id);
 
@@ -101,7 +101,7 @@ public class AuthorDAOImpl implements AuthorDAO {
         List<Author> allAuthors = new ArrayList<>();
 
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
-             PreparedStatement statement = connection.prepareStatement(AuthorQuery.All_AUTHORS)) {
+             PreparedStatement statement = connection.prepareStatement(SQLQuery.All_AUTHORS)) {
 
             ResultSet resultSet = statement.executeQuery();
 

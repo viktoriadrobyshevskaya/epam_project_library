@@ -47,8 +47,10 @@ public class BookOperationServlet extends HttpServlet {
         }else if (request.getParameterMap().get("addBook") != null) {
             request.getRequestDispatcher("/addBook.jsp").forward(request, response);
         }else if (request.getParameterMap().get("read") != null) {
+            int id = Integer.parseInt(request.getParameterMap().get("book_id")[0]);
             request.getRequestDispatcher("/read.jsp").forward(request, response);
         }else if (request.getParameterMap().get("order") != null) {
+            int id = Integer.parseInt(request.getParameterMap().get("book_id")[0]);
             request.getRequestDispatcher("/order.jsp").forward(request, response);
         }
     }

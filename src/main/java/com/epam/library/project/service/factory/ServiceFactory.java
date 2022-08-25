@@ -13,6 +13,7 @@ public final class ServiceFactory {
     private final UserService userService = new UserServiceImpl();
     private final UserDetailsService userDetailsService = new UserDetailsServiceImpl();
     private final RoleService roleService = new RoleServiceImpl();
+    private final OrderService orderService = new OrderServiceImpl();
 
     private ServiceFactory() {
     }
@@ -39,5 +40,9 @@ public final class ServiceFactory {
 
     public RoleService getRoleService() {
         return roleService;
+    }
+
+    public OrderService getOrderService() {
+        return orderService;
     }
 }
