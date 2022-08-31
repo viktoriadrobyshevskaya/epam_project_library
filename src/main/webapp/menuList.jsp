@@ -1,5 +1,6 @@
 <ul>
-  <li><a href="/library/books"> books </a></li>
-  <li><a href="/library/users"> users </a></li>
-  <li><a href="/library/authors"> authors </a></li>
+    <li><a href="/library/books"> BOOKS </a></li>
+    <li><a href="/library/users"> USERS </a></li>
+    <li><a href="/library/authors"> AUTHORS </a></li>
+    <li><a href="/library/orders"> ORDERS </a></li>
 </ul>

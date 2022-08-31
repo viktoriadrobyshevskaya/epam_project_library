@@ -1,6 +1,12 @@
 package com.epam.library.project.controller;
 
+import com.epam.library.project.entity.Book;
+import com.epam.library.project.entity.Order;
+import com.epam.library.project.entity.OrderStatus;
+import com.epam.library.project.entity.User;
+import com.epam.library.project.service.AuthorService;
 import com.epam.library.project.service.BookService;
+import com.epam.library.project.service.OrderService;
 import com.epam.library.project.service.exception.ServiceException;
 import com.epam.library.project.service.factory.ServiceFactory;
 
@@ -10,11 +16,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "bookOperation", urlPatterns = {"/bookOperation"})
 public class BookOperationServlet extends HttpServlet {
 
     private final BookService bookService = ServiceFactory.getInstance().getBookService();
+    private final OrderService orderService = ServiceFactory.getInstance().getOrderService();
+    private final AuthorService authorService = ServiceFactory.getInstance().getAuthorService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,20 +47,32 @@ public class BookOperationServlet extends HttpServlet {
         if (request.getParameterMap().get("remove") != null) {
             int id = Integer.parseInt(request.getParameterMap().get("book_id")[0]);
             bookService.deleteBookById(id);
-            request.setAttribute("books", bookService.showAllBooks());
             response.sendRedirect(request.getContextPath() + "/books");
         } else if (request.getParameterMap().get("edit") != null) {
             int bookId = Integer.parseInt(request.getParameterMap().get("book_id")[0]);
+            request.setAttribute("authors", authorService.getAllAuthors());
             request.setAttribute("edit-book", bookService.findBookById(bookId));
             request.getRequestDispatcher("/editBook.jsp").forward(request, response);
-        }else if (request.getParameterMap().get("addBook") != null) {
+        } else if (request.getParameterMap().get("addBook") != null) {
+            request.setAttribute("authors", authorService.getAllAuthors());
             request.getRequestDispatcher("/addBook.jsp").forward(request, response);
-        }else if (request.getParameterMap().get("read") != null) {
-            int id = Integer.parseInt(request.getParameterMap().get("book_id")[0]);
-            request.getRequestDispatcher("/read.jsp").forward(request, response);
-        }else if (request.getParameterMap().get("order") != null) {
-            int id = Integer.parseInt(request.getParameterMap().get("book_id")[0]);
-            request.getRequestDispatcher("/order.jsp").forward(request, response);
+        } else if (request.getParameterMap().get("search") != null) {
+            String surnameAuthor = request.getParameterMap().get("search")[0];
+            List<Book> books = bookService.getBooksBySearch(surnameAuthor);
+            request.setAttribute("books", books);
+            request.getRequestDispatcher("/books.jsp").forward(request, response);
+        } else if (request.getParameterMap().get("request") != null) {
+            int userId = ((User) request.getSession().getAttribute("user")).getId();
+            int bookId = Integer.parseInt(request.getParameter("book_id"));
+
+            List<Order> orders = orderService.getOrdersByIdUserAndIdBook(userId, bookId);
+            if (orders.size() == 0) {
+                orderService.addOrder(new Order(userId, bookId, OrderStatus.IN_PROGRESS.toString()));
+            } else {
+                Book book = bookService.findBookById(bookId);
+                request.getSession().setAttribute("error", String.format("Request for this book '%s' has been already created!", book.getTitle()));
+            }
+            response.sendRedirect(request.getContextPath() + "/books");
         }
     }
 }

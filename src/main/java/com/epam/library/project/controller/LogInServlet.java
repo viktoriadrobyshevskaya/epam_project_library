@@ -1,6 +1,8 @@
 package com.epam.library.project.controller;
 
+import com.epam.library.project.entity.Role;
 import com.epam.library.project.entity.User;
+import com.epam.library.project.service.RoleService;
 import com.epam.library.project.service.UserService;
 import com.epam.library.project.service.exception.ServiceException;
 import com.epam.library.project.service.factory.ServiceFactory;
@@ -17,6 +19,7 @@ import java.io.IOException;
 public class LogInServlet extends HttpServlet {
 
     private final UserService userService = ServiceFactory.getInstance().getUserService();
+    private final RoleService roleService = ServiceFactory.getInstance().getRoleService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,7 +42,9 @@ public class LogInServlet extends HttpServlet {
         User user = userService.findUser(new User(login, password));
         HttpSession session = req.getSession(true);
         if (user != null){
+            user.setRole(roleService.getRoleById(user.getRoleId()));
             session.setAttribute("user", user);
+            session.setAttribute("roles", roleService.getAllRoles());
             resp.sendRedirect(req.getContextPath() + "/books");
         } else {
             req.setAttribute("error", "User with this data does not exist!");

@@ -6,9 +6,12 @@ import com.epam.library.project.entity.UserDetails;
 import java.util.List;
 
 public interface UserDetailsDAO {
+
     public List<UserDetails> getAllUserDetails() throws DAOException;
 
-    public void addUserDetails(UserDetails userDetails) throws DAOException;
+    public int addUserDetails(UserDetails userDetails) throws DAOException;
+
+    public UserDetails findUserDetailsByIdUser(int id) throws DAOException;
 
     public UserDetails findUserDetailsById(int id) throws DAOException;
 

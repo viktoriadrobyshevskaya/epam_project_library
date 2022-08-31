@@ -1,8 +1,6 @@
 package com.epam.library.project.controller;
 
-import com.epam.library.project.entity.Author;
 import com.epam.library.project.entity.Book;
-import com.epam.library.project.service.AuthorService;
 import com.epam.library.project.service.BookService;
 import com.epam.library.project.service.exception.ServiceException;
 import com.epam.library.project.service.factory.ServiceFactory;
@@ -40,8 +38,13 @@ public class AllBooksServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServiceException {
         List<Book> books = bookService.showAllBooks();
-        req.setAttribute("currentPage", "books");
+
+        String errorMessage = (String) req.getSession().getAttribute("error");
+        req.setAttribute("error", errorMessage);
+        req.getSession().removeAttribute("error");
+
         req.setAttribute("books", books);
+        req.setAttribute("currentPage", "books");
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 }

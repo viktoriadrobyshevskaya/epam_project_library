@@ -97,6 +97,37 @@ public class AuthorDAOImpl implements AuthorDAO {
     }
 
     @Override
+    public List<Author> getAuthorBySurname(String surname) throws DAOException {
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SQLQuery.FIND_AUTHOR_BY_SURNAME)) {
+
+            statement.setString(1, "%" + surname + "%");
+            ResultSet resultSet = statement.executeQuery();
+
+            List<Author> authors = new ArrayList<>();
+
+            while (resultSet.next()) {
+                Author author = new Author();
+                author.setId_author(resultSet.getInt(1));
+                author.setName(resultSet.getString(2));
+                author.setMiddleName(resultSet.getString(3));
+                author.setSurname(resultSet.getString(4));
+                author.setYearOfBirth(resultSet.getInt(5));
+
+                authors.add(author);
+            }
+            resultSet.close();
+
+            return authors;
+
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Something wrong with Connection Pool!" + e);
+        }
+    }
+
+    @Override
     public List<Author> getAllAuthors() throws DAOException {
         List<Author> allAuthors = new ArrayList<>();
 

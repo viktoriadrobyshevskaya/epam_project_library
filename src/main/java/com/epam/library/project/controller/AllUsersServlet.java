@@ -1,6 +1,7 @@
 package com.epam.library.project.controller;
 
 import com.epam.library.project.entity.User;
+import com.epam.library.project.service.RoleService;
 import com.epam.library.project.service.UserService;
 import com.epam.library.project.service.exception.ServiceException;
 import com.epam.library.project.service.factory.ServiceFactory;
@@ -40,6 +41,7 @@ public class AllUsersServlet extends HttpServlet {
             List<User> users = userService.getAllUsers();
             req.setAttribute("currentPage", "users");
             req.setAttribute("users", users);
+
             req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 }

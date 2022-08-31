@@ -1,4 +1,4 @@
-package com.epam.library.project.controller;
+package com.epam.library.project.controller.filter;
 
 import com.epam.library.project.entity.User;
 
@@ -19,7 +19,6 @@ public class AuthorizationFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             HttpServletResponse response = (HttpServletResponse) servletResponse;
-//            request.getRequestDispatcher("/login").forward(request,response);
             response.sendRedirect(request.getContextPath() + "/login");
         }
     }

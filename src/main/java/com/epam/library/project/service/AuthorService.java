@@ -1,5 +1,6 @@
 package com.epam.library.project.service;
 
+import com.epam.library.project.dao.exception.DAOException;
 import com.epam.library.project.entity.Author;
 import com.epam.library.project.service.exception.ServiceException;
 
@@ -13,6 +14,8 @@ public interface AuthorService {
     public void updateAuthor(int id, Author author) throws ServiceException;
 
     public Author getAuthorById(int id) throws ServiceException;
+
+    public List<Author> getAuthorBySurname(String surname) throws ServiceException;
 
     public List<Author> getAllAuthors() throws ServiceException;
 

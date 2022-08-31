@@ -1,6 +1,5 @@
 package com.epam.library.project.service.impl;
 
-import com.epam.library.project.dao.UserDAO;
 import com.epam.library.project.dao.UserDetailsDAO;
 import com.epam.library.project.dao.exception.DAOException;
 import com.epam.library.project.dao.factory.DAOFactory;
@@ -24,9 +23,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public void addUserDetails(UserDetails userDetails) throws ServiceException {
+    public int addUserDetails(UserDetails userDetails) throws ServiceException {
         try {
-            userDetailsDAO.addUserDetails(userDetails);
+            return userDetailsDAO.addUserDetails(userDetails);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public UserDetails findUserDetailsByIdUser(int id) throws ServiceException {
+        try {
+            return userDetailsDAO.findUserDetailsByIdUser(id);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

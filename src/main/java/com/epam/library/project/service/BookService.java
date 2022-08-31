@@ -15,5 +15,9 @@ public interface BookService {
 
     public void updateBookById(int id, Book book) throws ServiceException;
 
+    public void updateNumberOfCopies(int bookId, int number) throws ServiceException;
+
     public Book findBookById(int bookId) throws ServiceException;
+
+    public List<Book> getBooksBySearch(String surnameAuthor) throws ServiceException;
 }

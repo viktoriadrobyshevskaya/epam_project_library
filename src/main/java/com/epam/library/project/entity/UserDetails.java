@@ -11,6 +11,8 @@ public class UserDetails {
     private String phone;
     private String address;
 
+    private User user;
+
     public UserDetails() {
     }
 
@@ -79,6 +81,14 @@ public class UserDetails {
         this.address = address;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -101,6 +111,7 @@ public class UserDetails {
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
+                ", user=" + user +
                 '}';
     }
 }

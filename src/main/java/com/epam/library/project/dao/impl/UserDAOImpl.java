@@ -22,9 +22,10 @@ public class UserDAOImpl implements UserDAO {
             connection = ConnectionPool.getInstance().takeConnection();
             preparedStatement = connection.prepareStatement(SQLQuery.UPDATE_USER);
 
-            preparedStatement.setString(1, user.getPassword());
-            preparedStatement.setInt(2, user.getRoleId());
-            preparedStatement.setInt(3, userId);
+            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setInt(3, user.getRoleId());
+            preparedStatement.setInt(4, userId);
 
             preparedStatement.executeUpdate();
 

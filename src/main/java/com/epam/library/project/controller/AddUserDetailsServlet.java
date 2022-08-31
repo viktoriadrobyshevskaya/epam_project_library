@@ -1,9 +1,8 @@
 package com.epam.library.project.controller;
 
-import com.epam.library.project.entity.Author;
-import com.epam.library.project.entity.Book;
-import com.epam.library.project.service.AuthorService;
-import com.epam.library.project.service.BookService;
+import com.epam.library.project.entity.User;
+import com.epam.library.project.entity.UserDetails;
+import com.epam.library.project.service.UserDetailsService;
 import com.epam.library.project.service.exception.ServiceException;
 import com.epam.library.project.service.factory.ServiceFactory;
 
@@ -13,13 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet(name = "addBook", urlPatterns = {"/addBook"})
-public class AddBookServlet extends HttpServlet {
+@WebServlet(name = "addUserDetails", urlPatterns = {"/addUserDetails"})
+public class AddUserDetailsServlet extends HttpServlet {
 
-    private final BookService bookService = ServiceFactory.getInstance().getBookService();
-    private final AuthorService authorService = ServiceFactory.getInstance().getAuthorService();
+    private final UserDetailsService userDetailsService = ServiceFactory.getInstance().getUserDetailsService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,12 +37,15 @@ public class AddBookServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServiceException {
-        Book newBook = new Book();
-        newBook.setTitle(req.getParameter("book_title"));
-        newBook.setId_author(Integer.parseInt(req.getParameter("author")));
-        newBook.setYearOfPublication(req.getParameter("book_year"));
-        newBook.setNumberOfCopies(Integer.parseInt(req.getParameter("book_number")));
-        bookService.addBook(newBook);
-        resp.sendRedirect(req.getContextPath() + "/books");
+        UserDetails userDetails = new UserDetails();
+        userDetails.setUserId(((User) req.getSession().getAttribute("user")).getId());
+        userDetails.setName(req.getParameter("user_name"));
+        userDetails.setSurname(req.getParameter("user_surname"));
+        userDetails.setPhone(req.getParameter("user_phone"));
+        userDetails.setAddress(req.getParameter("user_address"));
+        int userDetailsId = userDetailsService.addUserDetails(userDetails);
+
+        req.setAttribute("userDetailsId", userDetailsService.findUserDetailsById(userDetailsId).getId());
+        req.getRequestDispatcher("/userDetailsOperation").forward(req, resp);
     }
 }

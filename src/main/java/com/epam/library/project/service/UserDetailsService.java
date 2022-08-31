@@ -9,7 +9,9 @@ public interface UserDetailsService {
 
     public List<UserDetails> getAllUserDetails() throws ServiceException;
 
-    public void addUserDetails(UserDetails userDetails) throws ServiceException;
+    public int addUserDetails(UserDetails userDetails) throws ServiceException;
+
+    public UserDetails findUserDetailsByIdUser(int id) throws ServiceException;
 
     public UserDetails findUserDetailsById(int id) throws ServiceException;
 

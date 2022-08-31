@@ -40,7 +40,7 @@ public class AddUserServlet extends HttpServlet {
         User newUser = new User();
         newUser.setLogin(req.getParameter("user_login"));
         newUser.setPassword(req.getParameter("user_password"));
-        newUser.setRoleId(Integer.parseInt(req.getParameter("user_idRole")));
+        newUser.setRoleId(Integer.parseInt(req.getParameter("role")));
         userService.addUser(newUser);
         List<User> users = userService.getAllUsers();
         req.setAttribute("users", users);

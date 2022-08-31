@@ -1,7 +1,9 @@
 package com.epam.library.project.controller;
 
+import com.epam.library.project.entity.User;
+import com.epam.library.project.service.BookService;
+import com.epam.library.project.service.OrderService;
 import com.epam.library.project.service.UserDetailsService;
-import com.epam.library.project.service.UserService;
 import com.epam.library.project.service.exception.ServiceException;
 import com.epam.library.project.service.factory.ServiceFactory;
 
@@ -12,10 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "userOperation", urlPatterns = {"/userOperation"})
-public class UserOperationServlet extends HttpServlet {
+@WebServlet(name = "orderOperation", urlPatterns = {"/orderOperation"})
+public class OrderOperationServlet extends HttpServlet {
 
-    private final UserService userService = ServiceFactory.getInstance().getUserService();
+    private final BookService bookService = ServiceFactory.getInstance().getBookService();
+    private final OrderService orderService = ServiceFactory.getInstance().getOrderService();
     private final UserDetailsService userDetailsService = ServiceFactory.getInstance().getUserDetailsService();
 
     @Override
@@ -37,21 +40,15 @@ public class UserOperationServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
-        if (request.getParameterMap().get("remove") != null) {
-            int id = Integer.parseInt(request.getParameterMap().get("user_id")[0]);
-            userService.deleteUser(id);
-            request.setAttribute("users", userService.getAllUsers());
-            response.sendRedirect(request.getContextPath() + "/users");
-        } else if (request.getParameterMap().get("edit") != null) {
-            int id = Integer.parseInt(request.getParameterMap().get("user_id")[0]);
-            request.setAttribute("edit-user", userService.findUserById(id));
-            request.getRequestDispatcher("/editUser.jsp").forward(request, response);
+        if (request.getParameterMap().get("orders") != null) {
+            int userId = ((User) request.getSession().getAttribute("user")).getId();
+            request.setAttribute("orders", orderService.getOrdersByIdUser(userId));
+            request.getRequestDispatcher("/orders.jsp").forward(request, response);
+
         } else if (request.getParameterMap().get("showDetails") != null) {
-            int id = Integer.parseInt(request.getParameterMap().get("user_id")[0]);
-            request.setAttribute("userDetails", userDetailsService.findUserDetailsByIdUser(id));
+            int userId = ((User) request.getSession().getAttribute("user")).getId();
+            request.setAttribute("userDetails", userDetailsService.findUserDetailsByIdUser(userId));
             request.getRequestDispatcher("/showDetails.jsp").forward(request, response);
-        } else if (request.getParameterMap().get("addUser") != null) {
-            response.sendRedirect(request.getContextPath() + "/addUser.jsp");
         }
     }
 }

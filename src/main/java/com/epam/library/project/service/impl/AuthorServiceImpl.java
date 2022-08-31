@@ -50,6 +50,15 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    public List<Author> getAuthorBySurname(String surname) throws ServiceException {
+        try {
+            return authorDAO.getAuthorBySurname(surname);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public List<Author> getAllAuthors() throws ServiceException {
         try {
             return authorDAO.getAllAuthors();

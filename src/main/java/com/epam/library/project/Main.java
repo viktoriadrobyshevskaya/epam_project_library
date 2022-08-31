@@ -3,12 +3,14 @@ package com.epam.library.project;
 import com.epam.library.project.dao.AuthorDAO;
 import com.epam.library.project.dao.BookDAO;
 import com.epam.library.project.dao.UserDAO;
+import com.epam.library.project.dao.UserDetailsDAO;
 import com.epam.library.project.dao.exception.DAOException;
 import com.epam.library.project.dao.factory.DAOFactory;
 import com.epam.library.project.dao.impl.UserDAOImpl;
 import com.epam.library.project.entity.Author;
 import com.epam.library.project.entity.Book;
 import com.epam.library.project.entity.User;
+import com.epam.library.project.entity.UserDetails;
 import com.epam.library.project.service.exception.ServiceException;
 import com.epam.library.project.service.factory.ServiceFactory;
 
@@ -25,6 +27,14 @@ public class Main {
 //        } catch (DAOException e) {
 //            throw new RuntimeException(e);
 //        }
+
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        UserDetailsDAO userDetailsDAO = daoFactory.getUserDetailsDAO();
+        try {
+            System.out.println(userDetailsDAO.findUserDetailsById(3));
+        } catch (DAOException e) {
+            throw new RuntimeException(e);
+        }
 //
 //        ServiceFactory serviceFactory = ServiceFactory.getInstance();
 //        try {

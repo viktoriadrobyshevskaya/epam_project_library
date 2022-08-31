@@ -38,10 +38,9 @@ public class EditUserServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
         int id = Integer.parseInt(request.getParameterMap().get("user_id")[0]);
-
         String login = request.getParameter("user_login");
         String password = request.getParameter("user_password");
-        int id_role = Integer.parseInt(request.getParameter("user_idRole"));
+        int id_role = Integer.parseInt(request.getParameter("role"));
 
         userService.updateUser(id, new User(login, password, id_role));
 

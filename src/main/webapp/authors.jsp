@@ -3,8 +3,10 @@
 <a href="/library/logOut">Log Out</a>
 <br>
 <br>
+<jsp:include page="menuList.jsp"/>
 <br>
-<table>
+<h2>List of authors: </h2>
+<table border="2">
     <tr>
         <th>Name</th>
         <th>Middle Name</th>
@@ -41,5 +43,3 @@
 <form action="authorOperation" method="POST">
     <button name="addAuthor" value="addAuthor">+add author</button>
 </form>
-<br>
-<jsp:include page="menuList.jsp"></jsp:include>

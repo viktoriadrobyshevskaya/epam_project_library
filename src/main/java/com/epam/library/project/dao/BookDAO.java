@@ -15,5 +15,9 @@ public interface BookDAO {
 
     public void updateBookById(int id, Book book) throws DAOException;
 
+    public void updateNumberOfCopies(int bookId, int number) throws DAOException;
+
     public Book findBookById(int bookId) throws DAOException;
+
+    public List<Book> getBooksBySearch(String surnameAuthor) throws DAOException;
 }

@@ -50,6 +50,15 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public void updateNumberOfCopies(int bookId, int number) throws ServiceException {
+        try {
+            bookDAO.updateNumberOfCopies(bookId, number);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public Book findBookById(int bookId) throws ServiceException {
         try {
             return bookDAO.findBookById(bookId);
@@ -57,4 +66,15 @@ public class BookServiceImpl implements BookService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public List<Book> getBooksBySearch(String surnameAuthor) throws ServiceException {
+        try {
+            return bookDAO.getBooksBySearch(surnameAuthor);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+
 }

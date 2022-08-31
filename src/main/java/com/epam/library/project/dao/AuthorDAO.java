@@ -10,6 +10,8 @@ public interface AuthorDAO {
     public void removeAuthor(int id) throws DAOException;
     public void updateAuthor(int id, Author author) throws DAOException;
     public Author getAuthorById(int id) throws DAOException;
+    public List<Author> getAuthorBySurname(String surname) throws DAOException;
     public List<Author> getAllAuthors() throws DAOException;
+
 
 }
