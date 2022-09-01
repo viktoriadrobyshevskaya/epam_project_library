@@ -40,8 +40,10 @@ public class UserDetailsOperationServlet extends HttpServlet {
             request.setAttribute("edit-userDetail", userDetailsService.findUserDetailsByIdUser(userId));
             request.getRequestDispatcher("/editUserDetails.jsp").forward(request, response);
         } else {
-            int userDetailsId = (int) request.getAttribute("userDetailsId");
-            request.setAttribute("userDetails", userDetailsService.findUserDetailsById(userDetailsId));
+            if (request.getAttribute("userDetailsId") != null) {
+                int userDetailsId = (int) request.getAttribute("userDetailsId");
+                request.setAttribute("userDetails", userDetailsService.findUserDetailsById(userDetailsId));
+            }
             request.getRequestDispatcher("/showDetails.jsp").forward(request, response);
         }
     }

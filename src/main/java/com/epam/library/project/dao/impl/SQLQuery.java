@@ -38,7 +38,7 @@ public final class SQLQuery {
 
     public static final String ADD_ORDER = "INSERT INTO orders (id_user, id_book, status) VALUES (?,?,?);";
     public static final String DELETE_ORDER = "DELETE FROM orders WHERE id = ?;";
-    public static final String ALL_ORDERS = "SELECT * FROM orders;";
+    public static final String ALL_ORDERS = "SELECT * FROM orders ORDER BY id DESC;";
     public static final String UPDATE_ORDER = "UPDATE orders SET status = ? WHERE id = ?;";
     public static final String FIND_ORDER_BY_ID = "SELECT * FROM orders WHERE id = ?;";
     public static final String FIND_ORDERS_BY_ID_USER = "SELECT * FROM orders WHERE id_user = ?;";

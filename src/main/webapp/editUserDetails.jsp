@@ -1,33 +1,59 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="/WEB-INF/c.tld" prefix="c" %>
+<%@ taglib uri="/WEB-INF/fmt.tld" prefix="fmt" %>
 
-<c:set var="userDetails" value="${requestScope.get('edit-userDetail')}"/>
+<html>
+<head>
+    <title>Welcome Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+</head>
 
-<p>Пожалуйста, введите новые данные:</p>
+<body>
 
-<form action="editUserDetails" method="POST">
+<jsp:include page="welcomeMenu.jsp"/>
 
-    <input type="hidden" name="id" value="${userDetails.getId()}">
-    <input type="hidden" name="user_id" value="${userDetails.getUserId()}">
-
-    Имя: <input type="text" name="user_name" value="${userDetails.getName()}">
-    <br>
-    Фамилия: <input type="text" name="user_surname" value="${userDetails.getSurname()}">
-    <br>
-    Телефон: <input type="text" name="user_phone" value="${userDetails.getPhone()}">
-    <br>
-    Адрес: <input type="text" name="user_address" value="${userDetails.getAddress()}">
-    <br>
-    <button name="save" value="save">save</button>
-</form>
-<br>
-<br>
-<c:if test="${sessionScope.get('user').getRole().getTitle() eq 'admin' || sessionScope.get('user').getRole().getTitle() eq 'librarian'}">
-    <h4><a href="/library/users">Back to users</a></h4>
-</c:if>
-<h4>
-    <form action="orderOperation" method="POST">
-        <button name="showDetails" value="showDetails">Back</button>
-    </form>
-    <a href="/library/books">Back to the main page</a>
-</h4>
+<div class="album py-5 bg-light">
+    <div class="container">
+        <h4 class="display-6 text-left">Пожалуйста, введите новые данные:</h4>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <c:set var="userDetails" value="${requestScope.get('edit-userDetail')}"/>
+                        <form action="editUserDetails" method="POST">
+                            <input type="hidden" name="id" value="${userDetails.getId()}">
+                            <input type="hidden" name="user_id" value="${userDetails.getUserId()}">
+                            <div class="form-group">
+                                <label>Имя:</label>
+                                <input type="text" name="user_name" value="${userDetails.getName()}" class="form-control" placeholder="Введите имя">
+                            </div>
+                            <div class="form-group">
+                                <label>Фамилия:</label>
+                                <input  type="text" name="user_surname" value="${userDetails.getSurname()}" class="form-control" placeholder="Введите фамилию">
+                            </div>
+                            <div class="form-group">
+                                <label>Телефон:</label>
+                                <input type="text" name="user_phone" value="${userDetails.getPhone()}" placeholder="+375(44)********" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Адрес:</label>
+                                <input name="user_address" value="${userDetails.getAddress()}" placeholder="Минск, Минская 45-25" type="text" class="form-control">
+                            </div>
+                            <button class="btn btn-outline-primary" name="save" value="save">Сохранить</button>
+                            <form action="orderOperation" method="POST">
+                                <button class="btn btn-outline-danger" name="showDetails" value="showDetails"> Отмена</button>
+                            </form>
+                        </form>
+                    </div>
+                    <a href="/library/books"><i class="bi bi-arrow-left-circle"></i> На главную</a> <br>
+                    <c:if test="${sessionScope.get('user').getRole().getTitle() eq 'admin' || sessionScope.get('user').getRole().getTitle() eq 'librarian'}">
+                        <a href="/library/users"><i class="bi bi-arrow-left-circle"></i> Вернуться на Пользователи</a>
+                    </c:if>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

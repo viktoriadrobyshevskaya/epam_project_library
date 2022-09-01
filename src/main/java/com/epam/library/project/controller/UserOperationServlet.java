@@ -47,7 +47,8 @@ public class UserOperationServlet extends HttpServlet {
             request.setAttribute("edit-user", userService.findUserById(id));
             request.getRequestDispatcher("/editUser.jsp").forward(request, response);
         } else if (request.getParameterMap().get("showDetails") != null) {
-            int id = Integer.parseInt(request.getParameterMap().get("user_id")[0]);
+            int id = Integer.parseInt(request.getParameter("user_id"));
+            request.setAttribute("user_ID", id);
             request.setAttribute("userDetails", userDetailsService.findUserDetailsByIdUser(id));
             request.getRequestDispatcher("/showDetails.jsp").forward(request, response);
         } else if (request.getParameterMap().get("addUser") != null) {

@@ -47,7 +47,7 @@ public class LogInServlet extends HttpServlet {
             session.setAttribute("roles", roleService.getAllRoles());
             resp.sendRedirect(req.getContextPath() + "/books");
         } else {
-            req.setAttribute("error", "User with this data does not exist!");
+            req.setAttribute("error", "Неверный логин или пароль!");
             req.getRequestDispatcher("/logIn.jsp").forward(req, resp);
         }
     }

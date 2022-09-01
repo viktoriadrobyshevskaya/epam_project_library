@@ -1,24 +1,65 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="/WEB-INF/c.tld" prefix="c" %>
+<%@ taglib uri="/WEB-INF/fmt.tld" prefix="fmt" %>
 
-<c:set var="book" value="${requestScope.get('edit-author')}" />
+<html>
+<head>
+    <title>Welcome Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+</head>
 
-<p>Пожалуйста, введите новые данные:</p>
+<body>
 
-<form action="editAuthor" method="POST">
+<jsp:include page="welcomeMenu.jsp"/>
 
-    <input type="hidden" name="author_id" value="${book.getId_author()}">
+<div class="album py-5 bg-light">
+    <div class="container">
+        <h4 class="display-6 text-left">Пожалуйста, введите новые данные:</h4>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
 
-    Имя: <input type="text" name="author_name" value="${book.getName()}">
-    <br>
-    Отчество: <input type="text" name="author_middleName" value="${book.getMiddleName()}">
-    <br>
-    Фамилия: <input type="text" name="author_surname" value="${book.getSurname()}">
-    <br>
-    Год рождения: <input type="text" name="author_year" value="${book.getYearOfBirth()}">
-    <br>
-    <button name="save" value="save">save</button>
-</form>
-<br>
-<br>
-<a href="/library/authors">Back</a>
+                        <c:set var="author" value="${requestScope.get('edit-author')}"/>
+                        <form action="editAuthor" method="POST">
+
+                            <input type="hidden" name="author_id" value="${author.getId_author()}">
+
+                            <div class="form-group">
+                                <label>Имя:</label>
+                                <input type="text" name="author_name" value="${author.getName()}" class="form-control"
+                                       placeholder="">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Отчество:</label>
+                                <input type="text" name="author_middleName" value="${author.getMiddleName()}"
+                                       placeholder="" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Фамилия:</label>
+                                <input type="text" name="author_surname" value="${author.getSurname()}" placeholder=""
+                                       class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Год рождения:</label>
+                                <input name="author_year" value="${author.getYearOfBirth()}" placeholder="" type="text"
+                                       class="form-control">
+                            </div>
+
+                            <button class="btn btn-outline-primary" name="save" value="save">Сохранить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <a href="/library/authors"><i class="bi bi-arrow-left-circle"></i> Назад</a>
+        <br><br>
+    </div>
+</div>
+</body>
+</html>

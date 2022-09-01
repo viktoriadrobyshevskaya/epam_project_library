@@ -65,12 +65,14 @@ public class BookOperationServlet extends HttpServlet {
             int userId = ((User) request.getSession().getAttribute("user")).getId();
             int bookId = Integer.parseInt(request.getParameter("book_id"));
 
+            Book book = bookService.findBookById(bookId);
             List<Order> orders = orderService.getOrdersByIdUserAndIdBook(userId, bookId);
-            if (orders.size() == 0) {
-                orderService.addOrder(new Order(userId, bookId, OrderStatus.IN_PROGRESS.toString()));
+            if (book.getNumberOfCopies() == 0) {
+                request.getSession().setAttribute("error", String.format("Сейчас книги '%s' нет в наличии", book.getTitle()));
+            } else if (orders.size() > 0) {
+                request.getSession().setAttribute("error", String.format("Запрос для книги '%s' уже был отправлен", book.getTitle()));
             } else {
-                Book book = bookService.findBookById(bookId);
-                request.getSession().setAttribute("error", String.format("Request for this book '%s' has been already created!", book.getTitle()));
+                orderService.addOrder(new Order(userId, bookId, OrderStatus.IN_PROGRESS.toString()));
             }
             response.sendRedirect(request.getContextPath() + "/books");
         }
