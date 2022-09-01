@@ -3,10 +3,10 @@
 
 <form action="orderOperation" method="POST">
     <c:if test="${sessionScope.get('user').getRole().getTitle() eq 'user'}">
-        <button name="orders" value="orders">My orders</button>
+        <button name="orders" value="orders">Мои заказы</button>
         <br> <br>
     </c:if>
 
-    <button name="showDetails" value="showDetails">Additional data</button>
+    <button name="showDetails" value="showDetails">Дополнительные данные</button>
     <br> <br>
 </form>
