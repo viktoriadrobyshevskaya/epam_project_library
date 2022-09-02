@@ -25,7 +25,7 @@
             <thead class="thead-dark">
             <tr>
                 <th scope="col">Логин</th>
-                <th scope="col">Пароль</th>
+<%--                <th scope="col">Пароль</th>--%>
                 <th scope="col">Роль</th>
                 <th scope="col">Операции</th>
             </tr>
@@ -36,7 +36,7 @@
                     <tr>
                         <input type="hidden" name="user_id" value="${user.getId()}">
                         <td><c:out value="${user.getLogin()}"/></td>
-                        <td><c:out value="${user.getPassword()}"/></td>
+<%--                        <td><c:out value="${user.getPassword()}"/></td>--%>
                         <td><c:out value="${user.getRole().getTitle()}"/></td>
                         <td>
                             <button class="btn btn-outline-primary" name="edit" value="edit">редактировать</button>

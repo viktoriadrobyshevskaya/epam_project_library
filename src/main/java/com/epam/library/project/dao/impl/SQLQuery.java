@@ -2,14 +2,14 @@ package com.epam.library.project.dao.impl;
 
 public final class SQLQuery {
 
-    public static final String All_AUTHORS = "SELECT * FROM authors;";
+    public static final String All_AUTHORS = "SELECT * FROM authors ORDER BY id_author DESC;";
     public static final String ADD_AUTHOR = "INSERT INTO authors (name, middleName, surname, yearOfBirth) VALUES (?,?,?,?);";
     public static final String DELETE_AUTHOR = "DELETE FROM authors WHERE id_author = ?;";
     public static final String UPDATE_AUTHOR = "UPDATE authors SET name = ?, middleName = ?, surname = ?, yearOfBirth = ? WHERE id_author = ?;";
     public static final String FIND_AUTHOR = "SELECT * FROM authors WHERE id_author = ?;";
     public static final String FIND_AUTHOR_BY_SURNAME = "SELECT * FROM authors WHERE surname LIKE ?;";
 
-    public static final String All_BOOKS = "SELECT * FROM books;";
+    public static final String All_BOOKS = "SELECT * FROM books ORDER BY id_book DESC;";
     public static final String ADD_BOOK = "INSERT INTO books (title, id_author, year, numberOfCopies) VALUES (?,?,?,?);";
     public static final String DELETE_BOOK = "DELETE FROM books WHERE id_book = ?;";
     public static final String UPDATE_BOOK = "UPDATE books SET title = ?, id_author = ?, year = ?, numberOfCopies = ? WHERE id_book = ?;";
@@ -30,7 +30,7 @@ public final class SQLQuery {
     public static final String UPDATE_USER_DETAILS = "UPDATE usersdetails SET name = ?, surname = ?, phone = ?, address = ? WHERE id = ?;";
 
     public static final String UPDATE_USER = "UPDATE users SET login = ?, password = ?, role_id = ? WHERE id_user = ?;";
-    public static final String All_USERS = "SELECT * FROM users;";
+    public static final String All_USERS = "SELECT * FROM users ORDER BY id_user DESC;";
     public static final String FIND_USER = "SELECT * FROM users WHERE login = ? AND password = ?;";
     public static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE id_user = ?;";
     public static final String DELETE_USER = "DELETE FROM users WHERE id_user = ?;";
@@ -41,6 +41,6 @@ public final class SQLQuery {
     public static final String ALL_ORDERS = "SELECT * FROM orders ORDER BY id DESC;";
     public static final String UPDATE_ORDER = "UPDATE orders SET status = ? WHERE id = ?;";
     public static final String FIND_ORDER_BY_ID = "SELECT * FROM orders WHERE id = ?;";
-    public static final String FIND_ORDERS_BY_ID_USER = "SELECT * FROM orders WHERE id_user = ?;";
-    public static final String FIND_ORDERS_BY_ID_USER_AND_ID_BOOK = "SELECT * FROM orders WHERE id_user = ? AND id_book = ? AND NOT status = 'CANCELLED';";
+    public static final String FIND_ORDERS_BY_ID_USER = "SELECT * FROM orders WHERE id_user = ? ORDER BY id DESC;";
+    public static final String FIND_ORDERS_BY_ID_USER_AND_ID_BOOK = "SELECT * FROM orders WHERE id_user = ? AND id_book = ? AND NOT status = 'CANCELLED' ORDER BY id DESC;";
 }
