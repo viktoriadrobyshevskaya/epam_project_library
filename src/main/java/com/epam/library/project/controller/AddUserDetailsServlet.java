@@ -38,7 +38,12 @@ public class AddUserDetailsServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServiceException {
         UserDetails userDetails = new UserDetails();
-        userDetails.setUserId(Integer.parseInt(req.getParameter("user_id")));
+        User user = (User) req.getSession().getAttribute("user");
+        if (user.getRole().getTitle().equals("user")) {
+            userDetails.setUserId(user.getId());
+        } else {
+            userDetails.setUserId(Integer.parseInt(req.getParameter("user_id")));
+        }
         userDetails.setName(req.getParameter("user_name"));
         userDetails.setSurname(req.getParameter("user_surname"));
         userDetails.setPhone(req.getParameter("user_phone"));
