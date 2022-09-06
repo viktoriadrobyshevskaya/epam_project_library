@@ -53,7 +53,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
     @Override
     public int addUserDetails(UserDetails userDetails) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().takeConnection();
-            PreparedStatement statement = connection.prepareStatement(SQLQuery.ADD_USER_DETAILS, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement statement = connection.prepareStatement(SQLQuery.ADD_USER_DETAILS, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, userDetails.getUserId());
             statement.setString(2, userDetails.getName());
             statement.setString(3, userDetails.getSurname());
@@ -177,7 +177,6 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
             preparedStatement.setInt(5, id);
 
             preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
             throw new DAOException("Something wrong!" + e);
         } catch (ConnectionPoolException e) {

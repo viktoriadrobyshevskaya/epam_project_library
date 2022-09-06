@@ -1,7 +1,6 @@
 package com.epam.library.project.controller;
 
 import com.epam.library.project.entity.User;
-import com.epam.library.project.service.BookService;
 import com.epam.library.project.service.OrderService;
 import com.epam.library.project.service.UserDetailsService;
 import com.epam.library.project.service.exception.ServiceException;
@@ -17,7 +16,6 @@ import java.io.IOException;
 @WebServlet(name = "orderOperation", urlPatterns = {"/orderOperation"})
 public class OrderOperationServlet extends HttpServlet {
 
-    private final BookService bookService = ServiceFactory.getInstance().getBookService();
     private final OrderService orderService = ServiceFactory.getInstance().getOrderService();
     private final UserDetailsService userDetailsService = ServiceFactory.getInstance().getUserDetailsService();
 

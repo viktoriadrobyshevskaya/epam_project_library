@@ -1,7 +1,6 @@
 package com.epam.library.project.controller;
 
 import com.epam.library.project.entity.Book;
-import com.epam.library.project.service.AuthorService;
 import com.epam.library.project.service.BookService;
 import com.epam.library.project.service.exception.ServiceException;
 import com.epam.library.project.service.factory.ServiceFactory;
@@ -18,7 +17,6 @@ import java.util.List;
 public class EditBookServlet extends HttpServlet {
 
     private final BookService bookService = ServiceFactory.getInstance().getBookService();
-    private final AuthorService authorService = ServiceFactory.getInstance().getAuthorService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

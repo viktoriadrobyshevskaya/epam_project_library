@@ -8,8 +8,8 @@ public class Book {
     private int id_author;
     private String yearOfPublication;
     private int numberOfCopies;
+
     private Author author;
-    //private Order order;
 
     public Book() {
     }

@@ -1,9 +1,6 @@
 package com.epam.library.project.controller;
 
-import com.epam.library.project.entity.User;
-import com.epam.library.project.service.UserService;
 import com.epam.library.project.service.exception.ServiceException;
-import com.epam.library.project.service.factory.ServiceFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +12,6 @@ import java.io.IOException;
 
 @WebServlet(name = "logOut", urlPatterns = {"/logOut"})
 public class LogOutServlet extends HttpServlet {
-
-    private final UserService userService = ServiceFactory.getInstance().getUserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

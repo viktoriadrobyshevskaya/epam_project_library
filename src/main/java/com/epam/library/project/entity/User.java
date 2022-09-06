@@ -1,10 +1,13 @@
 package com.epam.library.project.entity;
 
+import java.util.Objects;
+
 public class User {
     private int id;
     private String login;
     private String password;
     private int roleId;
+
     private Role role;
 
     public User() {
@@ -68,6 +71,18 @@ public class User {
         this.role = role;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && roleId == user.roleId && Objects.equals(login, user.login) && Objects.equals(password, user.password) && Objects.equals(role, user.role);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, password, roleId, role);
+    }
 
     @Override
     public String toString() {

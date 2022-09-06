@@ -1,6 +1,5 @@
 package com.epam.library.project.controller;
 
-import com.epam.library.project.entity.Role;
 import com.epam.library.project.entity.User;
 import com.epam.library.project.service.RoleService;
 import com.epam.library.project.service.UserService;

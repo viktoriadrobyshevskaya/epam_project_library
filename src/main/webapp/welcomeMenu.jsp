@@ -5,9 +5,9 @@
     <nav class="mr-md-auto display-6">
         <i class="bi bi-book"></i><a class="p-2 text-dark" href="/library/books">КНИГИ</a>
         <c:if test="${sessionScope.get('user').getRole().getTitle() eq 'admin' || sessionScope.get('user').getRole().getTitle() eq 'librarian'}">
-            <i class="bi bi-person"></i><a class="p-2 text-dark" href="/library/users">ПОЛЬЗОВАТЕЛИ</a>
             <i class="bi bi-people"></i><a class="p-2 text-dark" href="/library/authors">АВТОРЫ</a>
             <i class="bi bi-cart-plus"></i><a class="p-2 text-dark" href="/library/orders">ЗАКАЗЫ</a>
+            <i class="bi bi-person"></i><a class="p-2 text-dark" href="/library/users">ПОЛЬЗОВАТЕЛИ</a>
         </c:if>
         <form action="orderOperation" method="POST">
             <c:if test="${sessionScope.get('user').getRole().getTitle() eq 'user'}">

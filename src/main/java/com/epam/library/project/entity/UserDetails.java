@@ -13,9 +13,6 @@ public class UserDetails {
 
     private User user;
 
-    public UserDetails() {
-    }
-
     public UserDetails(int userId, String name, String surname, String phone, String address) {
         this.userId = userId;
         this.name = name;
