@@ -14,6 +14,15 @@
 <jsp:include page="welcomeMenu.jsp"/>
 
 <div class="album py-5 bg-light">
+
+    <c:if test="${not empty problem}">
+        <div class="alert alert-danger text-center" role="alert">
+            <h4 class="alert-heading">Ошибка</h4>
+            <hr>
+            <p><c:out value="${problem}"/></p>
+        </div>
+    </c:if>
+
     <div class="container">
         <h4 class="display-6 text-left">Пожалуйста, введите нового пользователя:</h4>
         <div class="row">
@@ -25,17 +34,20 @@
                             <input type="hidden" name="user_id" value="${book.getId()}">
                             <div class="form-group">
                                 <label>Логин:</label>
-                                <input type="text" name="user_login" value="${book.getLogin()}" class="form-control" placeholder="Введите имя">
+                                <input type="text" name="user_login" value="${book.getLogin()}" class="form-control"
+                                       placeholder="Введите имя">
                             </div>
                             <div class="form-group">
                                 <label>Пароль:</label>
-                                <input type="password" name="user_password" value="${book.getPassword()}" class="form-control" placeholder="Введите фамилию">
+                                <input type="password" name="user_password" value="${book.getPassword()}"
+                                       class="form-control" placeholder="Введите фамилию">
                             </div>
                             <div class="form-group">
                                 <label>Роль:</label>
                                 <c:forEach var="role" items="${sessionScope.get('roles')}">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="role" value="${role.getId()}">
+                                        <input class="form-check-input" type="radio" name="role"
+                                               value="${role.getId()}">
                                         <label class="form-check-label">${role.getTitle()}</label>
                                     </div>
                                 </c:forEach>

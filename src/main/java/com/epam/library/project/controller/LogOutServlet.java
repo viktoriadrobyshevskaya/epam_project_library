@@ -1,6 +1,7 @@
 package com.epam.library.project.controller;
 
 import com.epam.library.project.service.exception.ServiceException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +25,9 @@ public class LogOutServlet extends HttpServlet {
         try {
             processRequest(req, resp);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            logger.error("Error during creation of authors", e);
+            req.setAttribute("problem", "Произошла ошибка! Обратитесь в тех.поддержку.");
+            req.getRequestDispatcher("/logOut").forward(req, resp);
         }
     }
 

@@ -4,6 +4,7 @@ import com.epam.library.project.entity.Book;
 import com.epam.library.project.service.BookService;
 import com.epam.library.project.service.exception.ServiceException;
 import com.epam.library.project.service.factory.ServiceFactory;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +23,9 @@ public class AddBookServlet extends HttpServlet {
         try {
             processRequest(req, resp);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            logger.error("Error during creation of authors", e);
+            req.setAttribute("problem", "Произошла ошибка! Обратитесь в тех.поддержку. " + e);
+            req.getRequestDispatcher("/addBook.jsp").forward(req, resp);
         }
     }
 
@@ -31,7 +34,9 @@ public class AddBookServlet extends HttpServlet {
         try {
             processRequest(req, resp);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            logger.error("Error during creation of authors", e);
+            req.setAttribute("problem", "Произошла ошибка! Обратитесь в тех.поддержку. " + e);
+            req.getRequestDispatcher("/addBook.jsp").forward(req, resp);
         }
     }
 

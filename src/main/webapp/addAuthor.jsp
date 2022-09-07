@@ -15,6 +15,15 @@
 <jsp:include page="welcomeMenu.jsp"/>
 
 <div class="album py-5 bg-light">
+
+    <c:if test="${not empty problem}">
+        <div class="alert alert-danger text-center" role="alert">
+            <h4 class="alert-heading">Ошибка</h4>
+            <hr>
+            <p><c:out value="${problem}"/></p>
+        </div>
+    </c:if>
+
     <div class="container">
         <h4 class="display-6 text-left">Пожалуйста, введите нового автора:</h4>
         <div class="row">

@@ -1,14 +1,11 @@
 package com.epam.library.project.controller;
 
-import com.epam.library.project.entity.Book;
-import com.epam.library.project.entity.Order;
-import com.epam.library.project.entity.OrderStatus;
-import com.epam.library.project.entity.User;
-import com.epam.library.project.service.AuthorService;
-import com.epam.library.project.service.BookService;
-import com.epam.library.project.service.OrderService;
+import com.epam.library.project.button.ButtonProvider;
+import com.epam.library.project.button.ButtonType;
+import com.epam.library.project.button.CommonButtonStrategyHandler;
+import com.epam.library.project.button.book.BookButtonStrategyProvider;
 import com.epam.library.project.service.exception.ServiceException;
-import com.epam.library.project.service.factory.ServiceFactory;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,21 +13,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "bookOperation", urlPatterns = {"/bookOperation"})
 public class BookOperationServlet extends HttpServlet {
 
-    private final BookService bookService = ServiceFactory.getInstance().getBookService();
-    private final OrderService orderService = ServiceFactory.getInstance().getOrderService();
-    private final AuthorService authorService = ServiceFactory.getInstance().getAuthorService();
+    private final Logger logger = org.apache.log4j.Logger.getLogger(AddAuthorServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             processRequest(req, resp);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            logger.error("Error during creation of authors", e);
+            req.setAttribute("problem", "Произошла ошибка! Обратитесь в тех.поддержку.");
+            req.getRequestDispatcher("/books").forward(req, resp);
         }
     }
 
@@ -39,7 +35,9 @@ public class BookOperationServlet extends HttpServlet {
         try {
             processRequest(req, resp);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            logger.error("Error during creation of authors", e);
+            req.setAttribute("problem", "Произошла ошибка! Обратитесь в тех.поддержку.");
+            req.getRequestDispatcher("/books").forward(req, resp);
         }
     }
 

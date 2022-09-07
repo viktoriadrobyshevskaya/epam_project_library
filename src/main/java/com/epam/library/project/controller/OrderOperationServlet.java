@@ -5,6 +5,7 @@ import com.epam.library.project.service.OrderService;
 import com.epam.library.project.service.UserDetailsService;
 import com.epam.library.project.service.exception.ServiceException;
 import com.epam.library.project.service.factory.ServiceFactory;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import java.io.IOException;
 @WebServlet(name = "orderOperation", urlPatterns = {"/orderOperation"})
 public class OrderOperationServlet extends HttpServlet {
 
+    private final Logger logger = org.apache.log4j.Logger.getLogger(AddAuthorServlet.class);
     private final OrderService orderService = ServiceFactory.getInstance().getOrderService();
     private final UserDetailsService userDetailsService = ServiceFactory.getInstance().getUserDetailsService();
 
@@ -24,7 +26,9 @@ public class OrderOperationServlet extends HttpServlet {
         try {
             processRequest(req, resp);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            logger.error("Error during creation of authors", e);
+            req.setAttribute("problem", "Произошла ошибка! Обратитесь в тех.поддержку.");
+            req.getRequestDispatcher("/orders").forward(req, resp);
         }
     }
 
@@ -33,7 +37,9 @@ public class OrderOperationServlet extends HttpServlet {
         try {
             processRequest(req, resp);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            logger.error("Error during creation of authors", e);
+            req.setAttribute("problem", "Произошла ошибка! Обратитесь в тех.поддержку.");
+            req.getRequestDispatcher("/orders").forward(req, resp);
         }
     }
 

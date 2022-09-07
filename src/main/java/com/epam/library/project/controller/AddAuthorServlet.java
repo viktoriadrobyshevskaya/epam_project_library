@@ -23,7 +23,9 @@ public class AddAuthorServlet extends HttpServlet {
         try {
             processRequest(req, resp);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            logger.error("Error during creation of authors", e);
+            req.setAttribute("problem", "Произошла ошибка! Обратитесь в тех.поддержку.");
+            req.getRequestDispatcher("/addAuthor.jsp").forward(req, resp);
         }
     }
 
@@ -32,11 +34,13 @@ public class AddAuthorServlet extends HttpServlet {
         try {
             processRequest(req, resp);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            logger.error("Error during creation of authors", e);
+            req.setAttribute("problem", "Произошла ошибка! Обратитесь в тех.поддержку.");
+            req.getRequestDispatcher("/addAuthor.jsp").forward(req, resp);
         }
     }
 
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServiceException {
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServiceException {
         Author newAuthor = new Author();
         newAuthor.setName(req.getParameter("author_name"));
         newAuthor.setMiddleName(req.getParameter("author_middleName"));

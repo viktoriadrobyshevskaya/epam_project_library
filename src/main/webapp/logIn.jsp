@@ -17,11 +17,21 @@
 </div>
 
 <div class="container">
+
+    <c:if test="${not empty problem}">
+        <div class="alert alert-danger text-center" role="alert">
+            <h4 class="alert-heading">Ошибка</h4>
+            <hr>
+            <p><c:out value="${problem}"/></p>
+        </div>
+    </c:if>
+
     <h4 class="display-6 text-left">Пожалуйста, введите нового пользователя:</h4>
     <div class="row">
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
+
                     <c:if test="${not empty error}">
                         <div class="alert alert-danger text-center" role="alert">
                             <h4 class="alert-heading">Ошибка</h4>
@@ -29,6 +39,7 @@
                             <p><c:out value="${error}"/></p>
                         </div>
                     </c:if>
+
                     <form action="login" method="POST">
                         <div class="form-group">
                             <i class="bi bi-person"></i>

@@ -4,6 +4,7 @@ import com.epam.library.project.entity.Author;
 import com.epam.library.project.service.AuthorService;
 import com.epam.library.project.service.exception.ServiceException;
 import com.epam.library.project.service.factory.ServiceFactory;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import java.util.List;
 @WebServlet(name = "author", urlPatterns = {"/authors"})
 public class AllAuthorsServlet extends HttpServlet {
 
+    private final Logger logger = org.apache.log4j.Logger.getLogger(AddAuthorServlet.class);
     private final AuthorService authorService = ServiceFactory.getInstance().getAuthorService();
 
     @Override
@@ -23,7 +25,9 @@ public class AllAuthorsServlet extends HttpServlet {
         try {
             processRequest(req, resp);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            logger.error("Error during creation of authors", e);
+            req.setAttribute("problem", "Произошла ошибка! Обратитесь в тех.поддержку.");
+            req.getRequestDispatcher("/authors.jsp").forward(req, resp);
         }
     }
 
@@ -32,7 +36,9 @@ public class AllAuthorsServlet extends HttpServlet {
         try {
             processRequest(req, resp);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            logger.error("Error during creation of authors", e);
+            req.setAttribute("problem", "Произошла ошибка! Обратитесь в тех.поддержку.");
+            req.getRequestDispatcher("/authors.jsp").forward(req, resp);
         }
     }
 
