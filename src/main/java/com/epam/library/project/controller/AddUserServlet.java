@@ -17,11 +17,12 @@ import java.util.List;
 @WebServlet(name = "addUser", urlPatterns = {"/addUser"})
 public class AddUserServlet extends HttpServlet {
 
-    private final Logger logger = org.apache.log4j.Logger.getLogger(AddAuthorServlet.class);
+    private final Logger logger = org.apache.log4j.Logger.getLogger(AddUserServlet.class);
     private final UserService userService = ServiceFactory.getInstance().getUserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("creation of new user");
         try {
             processRequest(req, resp);
         } catch (ServiceException e) {
@@ -33,6 +34,7 @@ public class AddUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("creation of new user");
         try {
             processRequest(req, resp);
         } catch (ServiceException e) {
@@ -42,11 +44,12 @@ public class AddUserServlet extends HttpServlet {
         }
     }
 
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServiceException {
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServiceException {
         User newUser = new User();
         newUser.setLogin(req.getParameter("user_login"));
         newUser.setPassword(req.getParameter("user_password"));
         newUser.setRoleId(Integer.parseInt(req.getParameter("role")));
+        logger.debug(String.format("creation of new user %s", newUser));
         userService.addUser(newUser);
         List<User> users = userService.getAllUsers();
         req.setAttribute("users", users);

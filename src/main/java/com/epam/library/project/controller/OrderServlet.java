@@ -20,7 +20,7 @@ import java.util.List;
 @WebServlet(name = "orders", urlPatterns = "/orders")
 public class OrderServlet extends HttpServlet {
 
-    private final Logger logger = org.apache.log4j.Logger.getLogger(AddAuthorServlet.class);
+    private final Logger logger = org.apache.log4j.Logger.getLogger(OrderServlet.class);
     private final OrderService orderService = ServiceFactory.getInstance().getOrderService();
     private final BookService bookService = ServiceFactory.getInstance().getBookService();
 

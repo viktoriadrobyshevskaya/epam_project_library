@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet(name = "userDetailsOperation", urlPatterns = {"/userDetailsOperation"})
 public class UserDetailsOperationServlet extends HttpServlet {
 
-    private final Logger logger = org.apache.log4j.Logger.getLogger(AddAuthorServlet.class);
+    private final Logger logger = org.apache.log4j.Logger.getLogger(UserDetailsOperationServlet.class);
     private final UserDetailsService userDetailsService = ServiceFactory.getInstance().getUserDetailsService();
 
     @Override

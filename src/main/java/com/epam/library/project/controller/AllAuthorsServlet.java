@@ -17,7 +17,7 @@ import java.util.List;
 @WebServlet(name = "author", urlPatterns = {"/authors"})
 public class AllAuthorsServlet extends HttpServlet {
 
-    private final Logger logger = org.apache.log4j.Logger.getLogger(AddAuthorServlet.class);
+    private final Logger logger = org.apache.log4j.Logger.getLogger(AllAuthorsServlet.class);
     private final AuthorService authorService = ServiceFactory.getInstance().getAuthorService();
 
     @Override

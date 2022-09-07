@@ -16,10 +16,12 @@ import java.io.IOException;
 @WebServlet(name = "addBook", urlPatterns = {"/addBook"})
 public class AddBookServlet extends HttpServlet {
 
+    private final Logger logger = org.apache.log4j.Logger.getLogger(AddBookServlet.class);
     private final BookService bookService = ServiceFactory.getInstance().getBookService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("GET: creation of book");
         try {
             processRequest(req, resp);
         } catch (ServiceException e) {
@@ -31,6 +33,7 @@ public class AddBookServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("POST: creation of book");
         try {
             processRequest(req, resp);
         } catch (ServiceException e) {

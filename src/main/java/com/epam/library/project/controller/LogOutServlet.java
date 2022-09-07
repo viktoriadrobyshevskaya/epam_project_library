@@ -14,6 +14,8 @@ import java.io.IOException;
 @WebServlet(name = "logOut", urlPatterns = {"/logOut"})
 public class LogOutServlet extends HttpServlet {
 
+    private final Logger logger = org.apache.log4j.Logger.getLogger(LogOutServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/logIn.jsp").forward(req, resp);

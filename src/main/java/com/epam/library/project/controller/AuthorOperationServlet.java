@@ -17,7 +17,7 @@ import java.io.IOException;
 @WebServlet(name = "authorOperation", urlPatterns = {"/authorOperation"})
 public class AuthorOperationServlet extends HttpServlet {
 
-    private final Logger logger = org.apache.log4j.Logger.getLogger(AddAuthorServlet.class);
+    private final Logger logger = org.apache.log4j.Logger.getLogger(AuthorOperationServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,17 +42,8 @@ public class AuthorOperationServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException {
-        if (request.getParameterMap().get("remove") != null) {
-            int id = Integer.parseInt(request.getParameterMap().get("author_id")[0]);
-            authorService.removeAuthor(id);
-            request.setAttribute("authors", authorService.getAllAuthors());
-            response.sendRedirect(request.getContextPath() + "/authors");
-        } else if (request.getParameterMap().get("edit") != null) {
-            int authorId = Integer.parseInt(request.getParameterMap().get("author_id")[0]);
-            request.setAttribute("edit-author", authorService.getAuthorById(authorId));
-            request.getRequestDispatcher("/editAuthor.jsp").forward(request, response);
-        }else if (request.getParameterMap().get("addAuthor") != null) {
-            request.getRequestDispatcher("/addAuthor.jsp").forward(request, response);
-        }
+        String button = AuthorButtonStrategyProvider.getActiveButtonNameByRequest(request);
+        ButtonProvider buttonProvider = CommonButtonStrategyHandler.getInstance().getButtonProvider(ButtonType.AUTHOR);
+        buttonProvider.getButtonStrategy(button).execution(request, response);
     }
 }

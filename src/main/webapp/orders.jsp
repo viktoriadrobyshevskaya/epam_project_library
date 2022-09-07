@@ -14,6 +14,15 @@
 <jsp:include page="welcomeMenu.jsp"/>
 
 <div class="container">
+
+    <c:if test="${not empty problem}">
+        <div class="alert alert-danger text-center" role="alert">
+            <h4 class="alert-heading">Ошибка</h4>
+            <hr>
+            <p><c:out value="${problem}"/></p>
+        </div>
+    </c:if>
+
     <c:choose>
         <c:when test="${not empty requestScope.get('orders')}">
             <div class="container">
@@ -49,9 +58,11 @@
                                                 </button>
                                             </c:when>
                                             <c:when test="${order.getStatus() eq 'IN_PROGRESS'}">
-                                                <button class="btn btn-outline-success" name="approve" value="approve">
-                                                    одобрить
-                                                </button>
+                                                <c:if test="${order.getBook().getNumberOfCopies() > 0}">
+                                                    <button class="btn btn-outline-success" name="approve" value="approve">
+                                                        одобрить
+                                                    </button>
+                                                </c:if>
                                                 <button class="btn btn-outline-danger" name="cancel" value="cancel">
                                                     отклонить
                                                 </button>
