@@ -2,20 +2,20 @@ package com.epam.library.project.dao.impl;
 
 public final class SQLQuery {
 
-    public static final String All_AUTHORS = "SELECT * FROM authors ORDER BY id_author DESC;";
+    public static final String All_AUTHORS = "SELECT * FROM authors ORDER BY id DESC;";
     public static final String ADD_AUTHOR = "INSERT INTO authors (name, middleName, surname, yearOfBirth) VALUES (?,?,?,?);";
-    public static final String DELETE_AUTHOR = "DELETE FROM authors WHERE id_author = ?;";
-    public static final String UPDATE_AUTHOR = "UPDATE authors SET name = ?, middleName = ?, surname = ?, yearOfBirth = ? WHERE id_author = ?;";
-    public static final String FIND_AUTHOR = "SELECT * FROM authors WHERE id_author = ?;";
+    public static final String DELETE_AUTHOR = "DELETE FROM authors WHERE id = ?;";
+    public static final String UPDATE_AUTHOR = "UPDATE authors SET name = ?, middleName = ?, surname = ?, yearOfBirth = ? WHERE id = ?;";
+    public static final String FIND_AUTHOR = "SELECT * FROM authors WHERE id = ?;";
     public static final String FIND_AUTHOR_BY_SURNAME = "SELECT * FROM authors WHERE surname LIKE ?;";
 
-    public static final String All_BOOKS = "SELECT * FROM books ORDER BY id_book DESC;";
+    public static final String All_BOOKS = "SELECT * FROM books ORDER BY id DESC;";
     public static final String ADD_BOOK = "INSERT INTO books (title, id_author, year, numberOfCopies) VALUES (?,?,?,?);";
-    public static final String DELETE_BOOK = "DELETE FROM books WHERE id_book = ?;";
-    public static final String UPDATE_BOOK = "UPDATE books SET title = ?, id_author = ?, year = ?, numberOfCopies = ? WHERE id_book = ?;";
-    public static final String UPDATE_NUMBER_OF_COPIES = "UPDATE books SET numberOfCopies = ? WHERE id_book = ?;";
-    public static final String FIND_BOOK = "SELECT * FROM books WHERE id_book = ?;";
-    public static final String FIND_BOOK_BY_SEARCH = "SELECT * FROM books as b inner join authors as a on a.id_author = b.id_author where a.surname LIKE ?;";
+    public static final String DELETE_BOOK = "DELETE FROM books WHERE id = ?;";
+    public static final String UPDATE_BOOK = "UPDATE books SET title = ?, id_author = ?, year = ?, numberOfCopies = ? WHERE id = ?;";
+    public static final String UPDATE_NUMBER_OF_COPIES = "UPDATE books SET numberOfCopies = ? WHERE id = ?;";
+    public static final String FIND_BOOK = "SELECT * FROM books WHERE id = ?;";
+    public static final String FIND_BOOK_BY_SEARCH = "SELECT * FROM books as b inner join authors as a on a.id = b.id_author where a.surname LIKE ?;";
 
     public static final String All_ROLES = "SELECT * FROM roles;";
     public static final String ADD_ROLE = "INSERT INTO roles (title) VALUES (?);";
@@ -29,11 +29,11 @@ public final class SQLQuery {
     public static final String DELETE_USER_DETAILS = "DELETE FROM usersdetails WHERE id = ?;";
     public static final String UPDATE_USER_DETAILS = "UPDATE usersdetails SET name = ?, surname = ?, phone = ?, address = ? WHERE id = ?;";
 
-    public static final String UPDATE_USER = "UPDATE users SET login = ?, password = ?, role_id = ? WHERE id_user = ?;";
-    public static final String All_USERS = "SELECT * FROM users ORDER BY id_user DESC;";
+    public static final String UPDATE_USER = "UPDATE users SET login = ?, password = ?, role_id = ? WHERE id = ?;";
+    public static final String All_USERS = "SELECT * FROM users ORDER BY id DESC;";
     public static final String FIND_USER = "SELECT * FROM users WHERE login = ? AND password = ?;";
-    public static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE id_user = ?;";
-    public static final String DELETE_USER = "DELETE FROM users WHERE id_user = ?;";
+    public static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE id = ?;";
+    public static final String DELETE_USER = "DELETE FROM users WHERE id = ?;";
     public static final String ADD_USER = "INSERT INTO users (login, password, role_id) VALUES (?,?,?);";
 
     public static final String ADD_ORDER = "INSERT INTO orders (id_user, id_book, status) VALUES (?,?,?);";

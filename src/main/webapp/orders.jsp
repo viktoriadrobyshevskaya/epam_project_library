@@ -53,9 +53,7 @@
                                     <c:if test="${sessionScope.get('user').getRole().getTitle() eq 'admin' || sessionScope.get('user').getRole().getTitle() eq 'librarian'}">
                                         <c:choose>
                                             <c:when test="${order.getStatus() eq 'APPROVED'}">
-                                                <button class="btn btn-outline-primary" name="accept" value="accept">
-                                                    возврат книги
-                                                </button>
+                                                status
                                             </c:when>
                                             <c:when test="${order.getStatus() eq 'IN_PROGRESS'}">
                                                 <c:if test="${order.getBook().getNumberOfCopies() > 0}">
